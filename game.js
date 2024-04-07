@@ -2,7 +2,12 @@ let hedgehog;
 let bunny;
 let squirrel;
 
+import foxes from "./foxes.js";
+import ducks from "./ducks.js";
+
 let rows = [];
+let foxes = [];
+let ducks = [];
 
 let gameIsRunning = true;
 let gridSize = 50;
