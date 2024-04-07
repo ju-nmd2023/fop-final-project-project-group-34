@@ -1,4 +1,5 @@
 import {gridSize} from ("./game.js");
+import hitRules from "./hit-rules";
 
 
 function fox() {
