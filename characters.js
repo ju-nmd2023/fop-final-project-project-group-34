@@ -1,11 +1,5 @@
-function bunny() {
+function bunny() {}
 
-}
+function squirrel() {}
 
-function squirrel() {
-
-}
-
-function hedgehog() {
-
-}
+function hedgehog() {}
