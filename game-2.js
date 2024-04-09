@@ -94,15 +94,19 @@ function drawGrid() {
 function keyPressed() {
   if (keyCode === UP_ARROW) {
     snake.direction.turnUp();
+    snake.update();
   }
   if (keyCode === DOWN_ARROW) {
     snake.direction.turnDown();
+    snake.update();
   }
   if (keyCode === LEFT_ARROW) {
     snake.direction.turnLeft();
+    snake.update();
   }
   if (keyCode === RIGHT_ARROW) {
     snake.direction.turnRight();
+    snake.update();
   }
 }
 
@@ -110,6 +114,5 @@ function draw() {
   background(0, 0, 0);
   drawGrid();
 
-  snake.update();
   snake.draw();
 }
