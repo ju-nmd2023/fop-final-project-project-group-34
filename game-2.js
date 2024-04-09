@@ -6,8 +6,7 @@ const gridSize = 30;
 class Snake {
   constructor(x, y, gridSize, gridLength) {
     const point = new Point(x, y);
-    const point2 = new Point(x + 2, y);
-    this.elements = [point, point2];
+    this.elements = [point];
     this.gridSize = gridSize;
     this.gridLength = gridLength;
     this.direction = new Direction(0, 0);
@@ -54,7 +53,11 @@ class Point {
   }
 }
 
-class Direction extends Point {
+class Direction {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
   turnLeft() {
     this.x = -1;
     this.y = 0;
