@@ -2,7 +2,15 @@
 
 const gridLength = 11;
 const gridSize = 30;
+let character;
+let foxes = [];
+let ducks = [];
+let timer = 60;
 
+function setup() {
+  createCanvas(400, 400);
+  frameRate(30);
+}
 class Snake {
   constructor(x, y, gridSize, gridLength) {
     const point = new Point(x, y);
@@ -111,6 +119,12 @@ function keyPressed() {
     snake.direction.turnRight();
     snake.update();
   }
+}
+
+function timerDisplay() {
+  textSize(14);
+  fill(0);
+  text("Timer:", 10, 20);
 }
 
 function draw() {

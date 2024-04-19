@@ -25,20 +25,19 @@ function setup() {
   }
 }
 
+//Click to start
+push();
+fill(0, 0, 0);
+textSize(30);
+text("Click S to start", 300, 290, 500, 200);
+pop();
 
-  //Click to start
-  push();
-  fill(0, 0, 0);
-  textSize(30);
-  text("Click S to start", 300, 290, 500, 200);
-  pop();
-
-  //Rules & description
-  push();
-  fill(0, 0, 0);
-  textSize(30);
-  text("Rules", 660, 165, 100, 50);
-  pop();
+//Rules & description
+push();
+fill(0, 0, 0);
+textSize(30);
+text("Rules", 660, 165, 100, 50);
+pop();
 
 function resetGame() {}
 
