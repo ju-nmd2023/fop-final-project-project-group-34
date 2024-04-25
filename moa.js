@@ -174,7 +174,7 @@ function setup() {
   // ROW 6
   for (let i = 0; i < 3; i++) {
     let x = i * 200 + 30;
-    ducks[index] = new Duck(x, height - grid * 7.5, grid * 2, grid, -1.3);
+    ducks[index] = new Duck(x, height - grid * 7, grid * 2, grid, -1.3);
     index++;
   }
 }
