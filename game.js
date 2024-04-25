@@ -84,7 +84,7 @@ class Fox extends Dimensions {
     this.speed = speed;
   }
 
-  show() {
+  draw() {
     fill(255);
     rect(this.x, this.y, this.width, this.height);
   }
@@ -118,7 +118,7 @@ class Duck {
     }
   }
 
-  show() {
+  draw() {
     fill(255, 255, 0);
     rect(
       this.x + this.width / 2,
@@ -188,7 +188,7 @@ function draw() {
 
   for (let i = 0; i < foxes.length; i++) {
     foxes[i].update();
-    foxes[i].show();
+    foxes[i].draw();
 
     if (bunny.intersects(foxes[i])) {
       resetGame();
@@ -197,7 +197,7 @@ function draw() {
 
   for (let i = 0; i < ducks.length; i++) {
     ducks[i].update();
-    ducks[i].show();
+    ducks[i].draw();
   }
 
   if (bunny.y < height - grid * 5 && bunny.y > grid * 2) {
