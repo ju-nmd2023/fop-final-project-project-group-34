@@ -7,8 +7,10 @@ let bunny;
 let ducks = [];
 let foxes = [];
 let timer;
-let timeLimit = 60000;
-
+let timeLimit = 90000;
+let gameIsRunning = false;
+let gameMode = "startscreen";
+let results;
 //ONLY HERE FOR REFERENCE WHEN CODE MAKING!!
 // function drawGrid() {
 //   push();
@@ -135,6 +137,8 @@ class Duck {
 function resetGame() {
   bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
   bunny.attach(null);
+  gameIsRunning = true;
+  gameMode = "running";
 }
 
 //SETUP
@@ -182,19 +186,71 @@ function setup() {
   }
 }
 
+function startScreen() {
+  push();
+
+  pop();
+
+  //Start
+  push();
+  fill(255);
+  textSize(24);
+  text("Click S to start", 300, 190, 500, 200);
+  pop();
+
+  //Rules Info
+  push();
+  fill(255);
+  textSize(24);
+  text("Rules", 100, 190, 500, 200);
+  pop();
+}
+
+function lostGame() {
+  push();
+  fill(255, 123, 177);
+  textSize(24);
+  text("OH-No You Lose!", 330, 170, 200, 300);
+  pop();
+
+  push();
+  fill(255);
+  textSize(20);
+  text("Click R to return to Main Menu", 635, 210, 140, 300);
+  pop();
+}
+
+function gameOver() {
+  background(0);
+  push();
+  fill(0, 255, 0);
+  textSize(30);
+  textAlign(CENTER, CENTER);
+  text(message, 300, 300);
+  text("PRESS MOUSE TO RESTART GAME", 200, 270);
+  pop();
+  gameMode = "gameOver";
+}
+
 function draw() {
   background(0);
 
   //timer
   let startTime = millis();
   let timePass = startTime - timer;
-  fill(255);
-  textSize(30);
-  text("Time Remaining:" + Math.floor((timeLimit - timePass) / 1000), 10, 30);
+  fill(255, 0, 0);
+  textSize(20);
+  text("Timer:" + Math.floor((timeLimit - timePass) / 1000), 400, 30);
 
   if (timePass > timeLimit) {
     resetGame();
     timer = millis();
+  }
+
+  //startScreen
+  if (gameMode === "startscreen") {
+    noStroke();
+    startScreen();
   }
 
   // Safety lines
@@ -247,4 +303,31 @@ function keyPressed() {
   } else if (keyCode === LEFT_ARROW) {
     bunny.move(-1, 0);
   }
+}
+
+//duck graphics
+function duck() {
+  //body
+  fill(255, 255, 102);
+  ellipse(125, 370, 55, 40);
+
+  //head
+  fill(255, 255, 102);
+  ellipse(150, 370, 30, 30);
+
+  //beak
+  fill(255, 143, 0);
+  triangle(163, 365, 163, 377, 180, 369);
+
+  //eyes
+  fill(0);
+  ellipse(153, 362, 4, 4);
+  fill(0);
+  ellipse(153, 376, 4, 4);
+
+  //wings
+  fill(255, 255, 102);
+  ellipse(120, 355, 40, 10);
+  fill(255, 255, 102);
+  ellipse(120, 385, 40, 10);
 }
