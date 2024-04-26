@@ -188,45 +188,42 @@ function setup() {
 
 function startScreen() {
   push();
+  fill(255, 255, 255);
+  rect(170, 150, 165, 200, 20);
+  rect(355, 200, 140, 100, 20);
+  rect(10, 200, 140, 100, 20);
+  pop();
 
+  //Game title
+  push();
+  fill(255, 0, 0);
+  textSize(40);
+  text("Picknick", 180, 200, 500, 200);
+  text("Day", 220, 250, 500, 200);
   pop();
 
   //Start
   push();
-  fill(255);
-  textSize(24);
-  text("Click S to start", 300, 190, 500, 200);
+  fill(255, 0, 0);
+  textSize(20);
+  text("Click S to start", 362, 240, 500, 200);
   pop();
 
   //Rules Info
   push();
-  fill(255);
-  textSize(24);
-  text("Rules", 100, 190, 500, 200);
+  fill(255, 0, 0);
+  textSize(28);
+  text("Rules", 45, 240, 500, 200);
   pop();
 }
 
-function lostGame() {
-  push();
-  fill(255, 123, 177);
-  textSize(24);
-  text("OH-No You Lose!", 330, 170, 200, 300);
-  pop();
-
-  push();
-  fill(255);
-  textSize(20);
-  text("Click R to return to Main Menu", 635, 210, 140, 300);
-  pop();
-}
-
-function gameOver() {
+function gameOverScreen() {
   background(0);
   push();
   fill(0, 255, 0);
   textSize(30);
   textAlign(CENTER, CENTER);
-  text(message, 300, 300);
+  text("GAME OVER!", 300, 300);
   text("PRESS MOUSE TO RESTART GAME", 200, 270);
   pop();
   gameMode = "gameOver";
@@ -291,6 +288,7 @@ function draw() {
 
   bunny.update();
   bunny.draw();
+  startScreen();
 }
 
 function keyPressed() {
@@ -302,6 +300,13 @@ function keyPressed() {
     bunny.move(1, 0);
   } else if (keyCode === LEFT_ARROW) {
     bunny.move(-1, 0);
+  }
+}
+
+function mousePressed() {
+  if (gameMode === "gameOver") {
+    resetGame();
+    gameMode = "startScreen";
   }
 }
 
