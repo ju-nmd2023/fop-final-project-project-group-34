@@ -6,6 +6,8 @@ let grid = 50;
 let bunny;
 let ducks = [];
 let foxes = [];
+let timer;
+let timeLimit = 60000;
 
 //ONLY HERE FOR REFERENCE WHEN CODE MAKING!!
 // function drawGrid() {
@@ -139,6 +141,7 @@ function resetGame() {
 function setup() {
   createCanvas(500, 500);
   resetGame();
+  timer = millis();
 
   let index = 0;
 
@@ -181,6 +184,19 @@ function setup() {
 
 function draw() {
   background(0);
+
+  //timer
+  let startTime = millis();
+  let timePass = startTime - timer;
+  fill(255);
+  textSize(30);
+  text("Time Remaining:" + Math.floor((timeLimit - timePass) / 1000), 10, 30);
+
+  if (timePass > timeLimit) {
+    resetGame();
+    timer = millis();
+  }
+
   // Safety lines
   fill(255, 100);
   rect(0, 0, width, grid * 2);
