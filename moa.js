@@ -143,7 +143,7 @@ function resetGame() {
 
 //SETUP
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(500, 700);
   resetGame();
   timer = millis();
 
@@ -174,7 +174,7 @@ function setup() {
   index = 0;
   for (let i = 0; i < 2; i++) {
     let x = i * 250 + 100;
-    ducks[index] = new Duck(x, height - grid * 6, grid * 3, grid, 2.3);
+    ducks[index] = new Duck(x, height - grid * 8, grid * 3, grid, 2.3);
     index++;
   }
 
@@ -220,7 +220,11 @@ function startScreen() {
 function gameOverScreen() {
   background(0);
   push();
-  fill(0, 255, 0);
+  fill(255, 255, 255);
+  rect(170, 150, 165, 200, 20);
+  pop();
+
+  fill(255, 0, 0);
   textSize(30);
   textAlign(CENTER, CENTER);
   text("GAME OVER!", 300, 300);
@@ -229,9 +233,29 @@ function gameOverScreen() {
   gameMode = "gameOver";
 }
 
+function rulesScreen() {
+  background(0);
+  push();
+  fill(255, 255, 255);
+  rect(170, 150, 165, 200, 20);
+  pop();
+
+  push();
+  fill(255, 0, 0);
+  textSize(14);
+  textAlign(CENTER, CENTER);
+  text(
+    "Join three forest friends—a bunny, a hedgehog, and a squirrel—on their picnic day. But watch out! A thieving fox has stolen their goodies, and they must navigate various obstacles to reclaim them. Dodge obstacles while moving forward. Jump on moving platforms, like ducks in a river, to progress. Reach the end before time runs out, avoiding obstacles and rivers along the way. Game over if you touch an obstacle, fall in the river, or run out of time. Good Luck!",
+    40,
+    240,
+    440,
+    200
+  );
+  pop();
+}
+
 function draw() {
   background(0);
-
   //timer
   let startTime = millis();
   let timePass = startTime - timer;
@@ -244,10 +268,18 @@ function draw() {
     timer = millis();
   }
 
-  //startScreen
-  if (gameMode === "startscreen") {
+  //ScreenCurrentState
+  if (gameMode === "startScreen") {
     noStroke();
     startScreen();
+  }
+
+  if (gameMode === "startscreen" && keyIsPressed === true && keyCode === 83) {
+    gameMode = "gamescreen";
+  }
+
+  if (gameMode === "rulesScreen") {
+    rulesScreen();
   }
 
   // Safety lines
@@ -301,12 +333,17 @@ function keyPressed() {
   } else if (keyCode === LEFT_ARROW) {
     bunny.move(-1, 0);
   }
+
+  if (keyIsPressed) {
+    gameMode = "startScreen";
+  }
 }
 
 function mousePressed() {
-  if (gameMode === "gameOver") {
-    resetGame();
-    gameMode = "startScreen";
+  if (mouseX > 10 && mouseX < 150 && mouseY > 200 && mouseY < 300) {
+    if (mousePressed) {
+      gameMode = "rulesScreen";
+    }
   }
 }
 
