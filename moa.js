@@ -189,7 +189,7 @@ function setup() {
 function startScreen() {
   push();
   fill(255, 255, 255);
-  rect(170, 150, 165, 200, 20);
+  rect(160, 150, 185, 200, 20);
   rect(355, 200, 140, 100, 20);
   rect(10, 200, 140, 100, 20);
   pop();
@@ -197,9 +197,9 @@ function startScreen() {
   //Game title
   push();
   fill(255, 0, 0);
-  textSize(40);
-  text("Picknick", 180, 200, 500, 200);
-  text("Day", 220, 250, 500, 200);
+  textSize(37);
+  text("PICKNICK", 165, 200, 500, 200);
+  text("DAY", 220, 250, 500, 200);
   pop();
 
   //Start
