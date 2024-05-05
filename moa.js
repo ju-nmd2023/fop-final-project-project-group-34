@@ -7,7 +7,7 @@ let bunny;
 let ducks = [];
 let foxes = [];
 let timer;
-let timeLimit = 90000;
+let timeLimit = 45000;
 let gameMode = "start";
 let gameIsRunning = false;
 let results;
@@ -141,19 +141,6 @@ function resetGame() {
   gameIsRunning = true;
 }
 
-function level1Setup() {
-  let index = 0;
-
-  //Row 1
-}
-
-function level2Setup() {
-  let index = 0;
-}
-
-function level3Setup() {
-  let index = 0;
-}
 //SETUP
 function setup() {
   createCanvas(500, 700);
@@ -198,75 +185,88 @@ function setup() {
     index++;
   }
 }
+function level1Setup() {
+  let index = 0;
+}
+function level2Setup() {
+  let index = 0;
+}
+
+function level3Setup() {
+  let index = 0;
+}
 
 function startScreen() {
-  push();
-  fill(255, 255, 255);
-  rect(160, 150, 185, 200, 20);
-  rect(355, 200, 140, 100, 20);
-  rect(10, 200, 140, 100, 20);
-  pop();
+  if (gameMode == "start") {
+    push();
+    fill(255, 255, 255);
+    rect(160, 150, 185, 200, 20);
+    rect(355, 200, 140, 100, 20);
+    rect(10, 200, 140, 100, 20);
+    pop();
 
-  //Game title
-  push();
-  fill(255, 0, 0);
-  textSize(37);
-  text("PICKNICK", 165, 200, 500, 200);
-  text("DAY", 220, 250, 500, 200);
-  pop();
+    //Game title
+    push();
+    fill(255, 0, 0);
+    textSize(37);
+    text("PICKNICK", 165, 200, 500, 200);
+    text("DAY", 220, 250, 500, 200);
+    pop();
 
-  //Start
-  push();
-  fill(255, 0, 0);
-  textSize(20);
-  text("Click S to start", 362, 240, 500, 200);
-  pop();
+    //Start
+    push();
+    fill(255, 0, 0);
+    textSize(20);
+    text("Click S to start", 362, 240, 500, 200);
+    pop();
 
-  //Rules Info
-  push();
-  fill(255, 0, 0);
-  textSize(28);
-  text("Rules", 45, 240, 500, 200);
-  pop();
-  gameMode = "start";
+    //Rules Info
+    push();
+    fill(255, 0, 0);
+    textSize(28);
+    text("Rules", 45, 240, 500, 200);
+    pop();
+  }
 }
 
 function gameOverScreen() {
-  background(0);
-  push();
-  fill(255, 255, 255);
-  rect(170, 150, 165, 200, 20);
-  pop();
+  if (gameMode === "gameOver") {
+    background(0);
+    push();
+    fill(255, 255, 255);
+    rect(170, 150, 165, 200, 20);
+    pop();
 
-  fill(255, 0, 0);
-  textSize(30);
-  textAlign(CENTER, CENTER);
-  text("GAME OVER!", 300, 300);
-  text("PRESS MOUSE TO RESTART GAME", 200, 270);
-  pop();
-  gameMode = "gameOver";
+    fill(255, 0, 0);
+    textSize(30);
+    textAlign(CENTER, CENTER);
+    text("GAME OVER!", 300, 300);
+    text("PRESS MOUSE TO RESTART GAME", 200, 270);
+    pop();
+  }
 }
 
 function rulesScreen() {
-  background(0);
-  push();
-  fill(255, 255, 255);
-  rect(170, 150, 165, 200, 20);
-  pop();
+  if (gameMode == "rules") {
+    background(0);
+    push();
+    fill(255, 255, 255);
+    rect(170, 150, 165, 200, 20);
+    pop();
 
-  push();
-  fill(255, 0, 0);
-  textSize(14);
-  textAlign(CENTER, CENTER);
-  text(
-    "Join three forest friends—a bunny, a hedgehog, and a squirrel—on their picnic day. But watch out! A thieving fox has stolen their goodies, and they must navigate various obstacles to reclaim them. Dodge obstacles while moving forward. Jump on moving platforms, like ducks in a river, to progress. Reach the end before time runs out, avoiding obstacles and rivers along the way. Game over if you touch an obstacle, fall in the river, or run out of time. Good Luck!",
-    40,
-    240,
-    440,
-    200
-  );
-  pop();
-  gameMode = "rules";
+    push();
+    fill(255, 0, 0);
+    textSize(14);
+    textAlign(CENTER, CENTER);
+    text(
+      "Join three forest friends—a bunny, a hedgehog, and a squirrel—on their picnic day. But watch out! A thieving fox has stolen their goodies, and they must navigate various obstacles to reclaim them. Dodge obstacles while moving forward. Jump on moving platforms, like ducks in a river, to progress. Reach the end before time runs out, avoiding obstacles and rivers along the way. Game over if you touch an obstacle, fall in the river, or run out of time. Good Luck!",
+      40,
+      240,
+      440,
+      200
+    );
+    pop();
+  }
 }
 
 function draw() {
@@ -279,8 +279,7 @@ function draw() {
   text("Timer:" + Math.floor((timeLimit - timePass) / 1000), 400, 30);
 
   if (timePass > timeLimit) {
-    resetGame();
-    timer = millis();
+    gameMode = "gameover";
   }
 
   if (ongoingLevel == 1) {
@@ -290,17 +289,17 @@ function draw() {
     //draw level 2
     level2Setup();
   } else if (ongoingLevel == 3) {
-    //draw level 2
+    //draw level 3
     level3Setup();
   }
 
   //ScreenCurrentState
   if (gameMode === "start") {
-    noStroke();
     startScreen();
   } else if (gameMode === "rules") {
-    noStroke();
     rulesScreen();
+  } else if (gameMode === "gameOver") {
+    gameOverScreen();
   }
 
   // Safety lines
@@ -353,18 +352,16 @@ function keyPressed() {
     bunny.move(1, 0);
   } else if (keyCode === LEFT_ARROW) {
     bunny.move(-1, 0);
-  }
-
-  if (keyIsPressed) {
+  } else if (key === "s" || key === "S") {
+    gameMode = "game";
+  } else if (key === "b" || key === "B") {
     gameMode = "start";
   }
 }
 
 function mousePressed() {
   if (mouseX > 10 && mouseX < 150 && mouseY > 200 && mouseY < 300) {
-    if (mousePressed) {
-      gameMode = "rules";
-    }
+    gameMode = "rules";
   }
 }
 
