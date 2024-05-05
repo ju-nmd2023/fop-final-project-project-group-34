@@ -8,9 +8,10 @@ let ducks = [];
 let foxes = [];
 let timer;
 let timeLimit = 90000;
+let gameMode = "start";
 let gameIsRunning = false;
-let gameMode = "startscreen";
 let results;
+let ongoingLevel = 1;
 //ONLY HERE FOR REFERENCE WHEN CODE MAKING!!
 // function drawGrid() {
 //   push();
@@ -138,9 +139,21 @@ function resetGame() {
   bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
   bunny.attach(null);
   gameIsRunning = true;
-  gameMode = "running";
 }
 
+function level1Setup() {
+  let index = 0;
+
+  //Row 1
+}
+
+function level2Setup() {
+  let index = 0;
+}
+
+function level3Setup() {
+  let index = 0;
+}
 //SETUP
 function setup() {
   createCanvas(500, 700);
@@ -215,6 +228,7 @@ function startScreen() {
   textSize(28);
   text("Rules", 45, 240, 500, 200);
   pop();
+  gameMode = "start";
 }
 
 function gameOverScreen() {
@@ -252,6 +266,7 @@ function rulesScreen() {
     200
   );
   pop();
+  gameMode = "rules";
 }
 
 function draw() {
@@ -268,17 +283,23 @@ function draw() {
     timer = millis();
   }
 
+  if (ongoingLevel == 1) {
+    level1Setup();
+    //draw level 1
+  } else if (ongoingLevel == 2) {
+    //draw level 2
+    level2Setup();
+  } else if (ongoingLevel == 3) {
+    //draw level 2
+    level3Setup();
+  }
+
   //ScreenCurrentState
-  if (gameMode === "startScreen") {
+  if (gameMode === "start") {
     noStroke();
     startScreen();
-  }
-
-  if (gameMode === "startscreen" && keyIsPressed === true && keyCode === 83) {
-    gameMode = "gamescreen";
-  }
-
-  if (gameMode === "rulesScreen") {
+  } else if (gameMode === "rules") {
+    noStroke();
     rulesScreen();
   }
 
@@ -335,14 +356,14 @@ function keyPressed() {
   }
 
   if (keyIsPressed) {
-    gameMode = "startScreen";
+    gameMode = "start";
   }
 }
 
 function mousePressed() {
   if (mouseX > 10 && mouseX < 150 && mouseY > 200 && mouseY < 300) {
     if (mousePressed) {
-      gameMode = "rulesScreen";
+      gameMode = "rules";
     }
   }
 }
