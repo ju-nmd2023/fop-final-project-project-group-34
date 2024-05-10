@@ -56,8 +56,8 @@ class Dimensions {
 }
 
 class Bunny extends Dimensions {
-  constructor(x, y, width) {
-    super(x, y, width, width);
+  constructor(x, y, width, height) {
+    super(x, y, width, width, height);
     this.attached = null;
   }
 
@@ -74,8 +74,38 @@ class Bunny extends Dimensions {
   }
 
   draw() {
-    fill(0, 255, 0, 200);
-    rect(this.x, this.y, this.width, this.width);
+    //body
+    fill(255, 255, 255, 200);
+    rect(this.x, this.y, this.width * 0.7, this.width * 0.9);
+    //ears
+    fill(255, 255, 255, 200);
+    rect(this.x * 1.02, this.y, this.width * 0.2, this.width * 0.3);
+    rect(this.x * 1.055, this.y, this.width * 0.2, this.width * 0.3);
+    fill(255, 184, 191, 200);
+    rect(this.x * 1.03, this.y, this.width * 0.08, this.width * 0.2);
+    rect(this.x * 1.065, this.y, this.width * 0.08, this.width * 0.2);
+    //eyes
+    fill(0, 0, 0);
+    rect(
+      this.x * 1.025,
+      this.y + this.height * 0.35,
+      this.width * 0.1,
+      this.width * 0.1
+    );
+    rect(
+      this.x * 1.065,
+      this.y + this.height * 0.35,
+      this.width * 0.1,
+      this.width * 0.1
+    );
+    //nose
+    fill(227, 28, 121, 200);
+    rect(
+      this.x * 1.045,
+      this.y + this.height * 0.45,
+      this.width * 0.1,
+      this.width * 0.1
+    );
   }
 
   move(xdir, ydir) {
@@ -91,8 +121,78 @@ class Fox extends Dimensions {
   }
 
   draw() {
+    //body
+    fill(252, 76, 2);
+    rect(
+      this.x + this.width * 0.3,
+      this.y + this.height * 0.4,
+      this.width * 0.9,
+      this.height * 0.5
+    );
+    // head
+    fill(252, 76, 2);
+    rect(
+      this.x + this.width * 0.9,
+      this.y + this.height * 0.4,
+      this.width * 0.3,
+      this.height * 0.5
+    );
+    //ears
+    fill(252, 76, 2);
+    triangle(
+      this.x + this.width * 0.96,
+      this.y + this.height * 0.4,
+      this.x + this.width * 1.0,
+      this.y + this.height * 0.5,
+      this.x + this.width * 0.96,
+      this.y + this.height * 0.6
+    );
+    triangle(
+      this.x + this.width * 0.96,
+      this.y + this.height * 0.67,
+      this.x + this.width * 1.0,
+      this.y + this.height * 0.77,
+      this.x + this.width * 0.96,
+      this.y + this.height * 0.87
+    );
+    //tail
+    fill(252, 76, 2);
+    ellipse(
+      this.x + this.width * 0.2,
+      this.y + this.height * 0.65,
+      this.width * 0.7,
+      this.height * 0.4
+    );
+    //eyes
     fill(255);
-    rect(this.x, this.y, this.width, this.height);
+    rect(
+      this.x + this.width * 1.1,
+      this.y + this.height * 0.48,
+      this.width * 0.04,
+      this.height * 0.1
+    );
+    rect(
+      this.x + this.width * 1.1,
+      this.y + this.height * 0.7,
+      this.width * 0.04,
+      this.height * 0.1
+    );
+    //nose
+    fill(252, 76, 2);
+    ellipse(
+      this.x + this.width * 1.22,
+      this.y + this.height * 0.65,
+      this.width * 0.15,
+      this.height * 0.15
+    );
+    fill(98, 47, 34);
+    ellipse(
+      this.x + this.width * 1.27,
+      this.y + this.height * 0.65,
+      this.width * 0.07,
+      this.height * 0.11
+    );
+    //triangle(this.x + this.width * 1.2, this.y + this.height * 0.55, this.x + this.width * 1.4, this.y + this.height * 0.65, this.x + this.width * 1.2, this.y + this.height * 0.75);
   }
 
   update() {
@@ -125,13 +225,32 @@ class Duck {
   }
 
   draw() {
-    fill(255, 255, 0);
-    rect(
-      this.x + this.width / 2,
-      this.y + this.height / 2,
-      this.width,
-      this.height
+    //body
+    fill(255, 255, 102);
+    ellipse(
+      this.x,
+      this.y + this.height / 1,
+      this.width / 2.1,
+      this.height / 1.7
     );
+
+    //head
+    fill(255, 255, 102);
+    ellipse(this.x, this.y + this.height / 1, this.width / 4, this.height / 3);
+
+    //beak
+    fill(255, 143, 0);
+    rect();
+
+    //eyes
+    fill(0);
+
+    fill(0);
+
+    //wings
+    fill(255, 255, 102);
+
+    fill(255, 255, 102);
   }
 }
 
@@ -363,31 +482,4 @@ function mousePressed() {
   if (mouseX > 10 && mouseX < 150 && mouseY > 200 && mouseY < 300) {
     gameMode = "rules";
   }
-}
-
-//duck graphics
-function duck() {
-  //body
-  fill(255, 255, 102);
-  ellipse(125, 370, 55, 40);
-
-  //head
-  fill(255, 255, 102);
-  ellipse(150, 370, 30, 30);
-
-  //beak
-  fill(255, 143, 0);
-  triangle(163, 365, 163, 377, 180, 369);
-
-  //eyes
-  fill(0);
-  ellipse(153, 362, 4, 4);
-  fill(0);
-  ellipse(153, 376, 4, 4);
-
-  //wings
-  fill(255, 255, 102);
-  ellipse(120, 355, 40, 10);
-  fill(255, 255, 102);
-  ellipse(120, 385, 40, 10);
 }
