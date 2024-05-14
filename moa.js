@@ -163,14 +163,22 @@ class Fox extends Dimensions {
       this.width * 0.7,
       this.height * 0.4
     );
-    //eyes
     fill(255);
+    ellipse(
+      this.x + this.width * 0.01,
+      this.y + this.height * 0.65,
+      this.width * 0.3,
+      this.height * 0.3
+    );
+    //eyes
+    fill(0);
     rect(
       this.x + this.width * 1.1,
       this.y + this.height * 0.48,
       this.width * 0.04,
       this.height * 0.1
     );
+
     rect(
       this.x + this.width * 1.1,
       this.y + this.height * 0.7,
@@ -345,6 +353,7 @@ function startScreen() {
     textSize(28);
     text("Rules", 45, 240, 500, 200);
     pop();
+    timer = millis();
   }
 }
 
@@ -356,12 +365,14 @@ function gameOverScreen() {
     rect(170, 150, 165, 200, 20);
     pop();
 
+    push();
     fill(255, 0, 0);
-    textSize(30);
+    textSize(25);
     textAlign(CENTER, CENTER);
-    text("GAME OVER!", 300, 300);
-    text("PRESS MOUSE TO RESTART GAME", 200, 270);
+    text("GAME OVER!", 250, 270);
+    text("PRESS MOUSE TO RESTART GAME", 250, 320);
     pop();
+    timer = millis();
   }
 }
 
@@ -390,16 +401,6 @@ function rulesScreen() {
 
 function draw() {
   background(0);
-  //timer
-  let startTime = millis();
-  let timePass = startTime - timer;
-  fill(255, 0, 0);
-  textSize(20);
-  text("Timer:" + Math.floor((timeLimit - timePass) / 1000), 400, 30);
-
-  if (timePass > timeLimit) {
-    gameMode = "gameover";
-  }
 
   if (ongoingLevel == 1) {
     level1Setup();
@@ -422,7 +423,7 @@ function draw() {
   }
 
   // Safety lines
-  fill(255, 100);
+  fill(0, 154, 23);
   rect(0, 0, width, grid * 2);
   rect(0, height - grid, width, grid);
   rect(0, height - grid * 5, width, grid);
@@ -460,6 +461,16 @@ function draw() {
   bunny.update();
   bunny.draw();
   startScreen();
+
+  //timer
+  let timePass = millis() - timer;
+  fill(255, 0, 0);
+  textSize(20);
+  text("Timer:" + Math.floor((timeLimit - timePass) / 1000), 400, 30);
+
+  if (timePass > timeLimit) {
+    gameMode = "gameOver";
+  }
 }
 
 function keyPressed() {
@@ -481,5 +492,11 @@ function keyPressed() {
 function mousePressed() {
   if (mouseX > 10 && mouseX < 150 && mouseY > 200 && mouseY < 300) {
     gameMode = "rules";
+  }
+
+  if (gameMode === "gameOver") {
+    resetGame();
+    gameMode = "start";
+    startScreen();
   }
 }
