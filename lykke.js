@@ -7,24 +7,10 @@ let bunny;
 let ducks = [];
 let foxes = [];
 let timer;
-let timeLimit = 45000;
+let timeLimit = 20000;
 let gameMode = "start";
 let gameIsRunning = false;
-let results;
 let ongoingLevel = 1;
-//ONLY HERE FOR REFERENCE WHEN CODE MAKING!!
-// function drawGrid() {
-//   push();
-//   stroke(255, 255, 255);
-//   fill(0, 0, 0);
-//   for (let x = 0; x < grid; x++) {
-//     for (let y = 0; y < grid; y++) {
-//       rect(x * grid, y * grid, grid, grid);
-//     }
-//   }
-//   pop();
-
-// }
 
 //CLASSES
 class Dimensions {
@@ -81,6 +67,21 @@ class Bunny extends Dimensions {
   move(xdir, ydir) {
     this.x += xdir * grid;
     this.y += ydir * grid;
+    this.winningZone();
+  }
+
+  winningZone() {
+    if (ongoingLevel === 1 && this.y < 30) {
+      console.log("Finished first level");
+      setupLevel2();
+    } else if (ongoingLevel === 2 && this.y < 30) {
+      console.log("Finished second level");
+      setupLevel3();
+    } else if (ongoingLevel === 3 && this.y < 30) {
+      console.log("You Won");
+      gameMode = "wonGame";
+      wonGameScreen();
+    }
   }
 }
 
@@ -136,6 +137,7 @@ class Duck {
 }
 
 function resetGame() {
+  ongoingLevel = 1;
   bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
   bunny.attach(null);
   gameIsRunning = true;
@@ -230,21 +232,202 @@ function gameBackground() {
   pop();
 }
 
-function wonGame() {}
+function scenary1() {
+  fill(0, 154, 23);
+  rect(0, 0, width, grid * 4.4);
+  rect(0, height - grid, width, grid);
+  rect(0, height - grid * 5, width, grid);
+}
 
-function lostGame() {}
+function scenary2() {
+  fill(0, 154, 23);
+  rect(0, 0, width, grid * 2.9);
+  rect(0, height - grid, width, grid);
+  rect(0, height - grid * 5, width, grid);
+}
+
+function scenary3() {
+  fill(0, 154, 23);
+  rect(0, 0, width, grid * 2.9);
+  rect(0, height - grid, width, grid);
+  rect(0, height - grid * 5, width, grid);
+}
+
+function wonGameScreen() {
+  if (gameMode === "gameWon") {
+    gameIsRunning = false;
+    gameBackground();
+    push();
+    fill(255, 255, 255);
+    rect(25, 200, 450, 200, 20);
+    pop();
+
+    push();
+    fill(0, 0, 0);
+    textSize(25);
+    textAlign(CENTER, CENTER);
+    text("GAME OVER!", 250, 270);
+    text("PRESS R TO RESTART GAME", 250, 320);
+    pop();
+    timer = millis();
+  }
+}
+
+function startScreen() {
+  if (gameMode == "start") {
+    gameIsRunning = false;
+    gameBackground();
+    push();
+    fill(255, 255, 255);
+    rect(160, 150, 185, 200, 20);
+    rect(355, 200, 140, 100, 20);
+    rect(10, 200, 140, 100, 20);
+    pop();
+    //Game title
+    push();
+    fill(0, 0, 0);
+    textSize(37);
+    text("Picnic", 200, 200, 500, 200);
+    text("Panic", 200, 250, 500, 200);
+    pop();
+    //Start
+    push();
+    fill(0, 0, 0);
+    textSize(20);
+    text("Click S to start", 362, 240, 500, 200);
+    pop();
+    //Rules Info
+    push();
+    fill(0, 0, 0);
+    textSize(28);
+    text("Rules", 45, 240, 500, 200);
+    pop();
+    timer = millis();
+  }
+}
+
+function gameOverScreen() {
+  if (gameMode === "gameOver") {
+    gameIsRunning = false;
+    gameBackground();
+    push();
+    fill(255, 255, 255);
+    rect(25, 200, 450, 200, 20);
+    pop();
+
+    push();
+    fill(0, 0, 0);
+    textSize(25);
+    textAlign(CENTER, CENTER);
+    text("GAME OVER!", 250, 270);
+    text("PRESS R TO RESTART GAME", 250, 320);
+    pop();
+    timer = millis();
+  }
+}
+
+function setupLevel1() {
+  bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+  bunny.attach(null);
+  gameIsRunning = true;
+  ongoingLevel = 1;
+  timer = millis();
+}
+
+function setupLevel2() {
+  bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+  bunny.attach(null);
+  gameIsRunning = true;
+  ongoingLevel = 2;
+  timer = millis();
+}
+
+function setupLevel3() {
+  bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+  bunny.attach(null);
+  gameIsRunning = true;
+  ongoingLevel = 3;
+  timer = millis();
+}
+
+function rulesScreen() {
+  if (gameMode == "rules" && gameIsRunning === false) {
+    gameBackground();
+    push();
+    fill(255, 255, 255);
+    rect(25, 200, 445, 200, 20);
+    pop();
+
+    push();
+    fill(0, 0, 0);
+    textSize(14);
+    textAlign(CENTER, CENTER);
+    text(
+      "Join three forest friends—a bunny, a hedgehog, and a squirrel—on their picnic day. But watch out! A thieving fox has stolen their goodies, and they must navigate various obstacles to reclaim them. Dodge obstacles while moving forward. Jump on moving platforms, like ducks in a river, to progress. Reach the end before time runs out, avoiding obstacles and rivers along the way. Game over if you touch an obstacle, fall in the river, or run out of time. Good Luck!",
+      40,
+      200,
+      420,
+      200
+    );
+    pop();
+    timer = millis();
+  }
+}
 
 //SETUP
 function setup() {
   createCanvas(500, 700);
   resetGame();
-  timer = millis();
 
   let index = 0;
 
-  if (ongoingLevel == 1) {
+  if (ongoingLevel === 1 && gameMode !== "rules") {
+    gameIsRunning = true;
+    timer = millis();
     // ROW 1
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 4; i++) {
+      let x = i * 300 + grid;
+      foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 1);
+      index++;
+    }
+
+    // ROW 2
+    for (let i = 0; i < 3; i++) {
+      let x = i * 200 + grid;
+      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3.5);
+      index++;
+    }
+
+    // ROW 3
+    for (let i = 0; i < 4; i++) {
+      let x = i * 150 + grid;
+      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1.2);
+      index++;
+    }
+
+    // ROW 4
+    index = 0;
+    for (let i = 0; i < 3; i++) {
+      let x = i * 250 + 100;
+      ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 2.3);
+      index++;
+    }
+
+    // ROW 5
+    for (let i = 0; i < 4; i++) {
+      let x = i * 200 + 30;
+      ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -1.3);
+      index++;
+    }
+  }
+
+  if (ongoingLevel === 2) {
+    bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+    bunny.attach(null);
+    gameIsRunning = true;
+    timer = millis();
+    // ROW 1
+    for (let i = 0; i < 4; i++) {
       let x = i * 300;
       foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 2);
       index++;
@@ -253,14 +436,14 @@ function setup() {
     // ROW 2
     for (let i = 0; i < 3; i++) {
       let x = i * 200 + 150;
-      foxes[index] = new Fox(x, height - grid * 3, grid, grid, -3.5);
+      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3.5);
       index++;
     }
 
     // ROW 3
     for (let i = 0; i < 4; i++) {
-      let x = i * 150 + 25;
-      foxes[index] = new Fox(x, height - grid * 4, grid, grid, 1.2);
+      let x = i * 150 + 50;
+      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1.2);
       index++;
     }
 
@@ -268,90 +451,59 @@ function setup() {
     index = 0;
     for (let i = 0; i < 3; i++) {
       let x = i * 250 + 100;
-      ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 2.3);
+      ducks[index] = new Duck(x, height - grid * 6.5, grid * 0.5, grid, 2.3);
       index++;
     }
 
     // ROW 6
     for (let i = 0; i < 4; i++) {
       let x = i * 200 + 30;
-      ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -1.3);
+      ducks[index] = new Duck(x, height - grid * 7.5, grid * 0.5, grid, -1.3);
       index++;
     }
   }
-}
 
-function startScreen() {
-  // if (gameMode == "start") {
-  //   // gameBackground();
-  //   push();
-  //   fill(255, 255, 255);
-  //   rect(160, 150, 185, 200, 20);
-  //   rect(355, 200, 140, 100, 20);
-  //   rect(10, 200, 140, 100, 20);
-  //   pop();
-  //   //Game title
-  //   push();
-  //   fill(255, 0, 0);
-  //   textSize(37);
-  //   text("Picnic", 165, 200, 500, 200);
-  //   text("panic", 220, 250, 500, 200);
-  //   pop();
-  //   //Start
-  //   push();
-  //   fill(255, 0, 0);
-  //   textSize(20);
-  //   text("Click S to start", 362, 240, 500, 200);
-  //   pop();
-  //   //Rules Info
-  //   push();
-  //   fill(255, 0, 0);
-  //   textSize(28);
-  //   text("Rules", 45, 240, 500, 200);
-  //   pop();
-  //   timer = millis();
-  // }
-}
-
-function gameOverScreen() {
-  if (gameMode === "gameOver") {
-    gameBackground();
-    push();
-    fill(255, 255, 255);
-    rect(170, 150, 165, 200, 20);
-    pop();
-
-    push();
-    fill(255, 0, 0);
-    textSize(25);
-    textAlign(CENTER, CENTER);
-    text("GAME OVER!", 250, 270);
-    text("PRESS MOUSE TO RESTART GAME", 250, 320);
-    pop();
+  if (ongoingLevel === 3) {
+    bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+    bunny.attach(null);
+    gameIsRunning = true;
     timer = millis();
-  }
-}
 
-function rulesScreen() {
-  if (gameMode == "rules") {
-    gameBackground();
-    push();
-    fill(255, 255, 255);
-    rect(170, 150, 165, 200, 20);
-    pop();
+    // ROW 1
+    for (let i = 0; i < 4; i++) {
+      let x = i * 300;
+      foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 2);
+      index++;
+    }
 
-    push();
-    fill(255, 0, 0);
-    textSize(14);
-    textAlign(CENTER, CENTER);
-    text(
-      "Join three forest friends—a bunny, a hedgehog, and a squirrel—on their picnic day. But watch out! A thieving fox has stolen their goodies, and they must navigate various obstacles to reclaim them. Dodge obstacles while moving forward. Jump on moving platforms, like ducks in a river, to progress. Reach the end before time runs out, avoiding obstacles and rivers along the way. Game over if you touch an obstacle, fall in the river, or run out of time. Good Luck!",
-      40,
-      240,
-      440,
-      200
-    );
-    pop();
+    // ROW 2
+    for (let i = 0; i < 3; i++) {
+      let x = i * 200 + 150;
+      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3.5);
+      index++;
+    }
+
+    // ROW 3
+    for (let i = 0; i < 4; i++) {
+      let x = i * 150 + 25;
+      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1.2);
+      index++;
+    }
+
+    // ROW 5
+    index = 0;
+    for (let i = 0; i < 3; i++) {
+      let x = i * 250 + 100;
+      ducks[index] = new Duck(x, height - grid * 6.5, grid * 0.5, grid, 2.3);
+      index++;
+    }
+
+    // ROW 6
+    for (let i = 0; i < 4; i++) {
+      let x = i * 200 + 30;
+      ducks[index] = new Duck(x, height - grid * 7.5, grid * 0.5, grid, -1.3);
+      index++;
+    }
   }
 }
 
@@ -361,60 +513,75 @@ function draw() {
   //ScreenCurrentState
   if (gameMode === "start") {
     startScreen();
+    gameIsRunning = false;
   } else if (gameMode === "rules") {
     rulesScreen();
+    gameIsRunning = false;
   } else if (gameMode === "gameOver") {
     gameOverScreen();
-  }
-
-  // Safety lines
-  fill(0, 154, 23);
-  rect(0, 0, width, grid * 2.9);
-  rect(0, height - grid, width, grid);
-  rect(0, height - grid * 5, width, grid);
-
-  for (let i = 0; i < foxes.length; i++) {
-    foxes[i].update();
-    foxes[i].draw();
-
-    if (bunny.intersects(foxes[i])) {
-      resetGame();
+    gameIsRunning = false;
+  } else if ((gameMode = "gameScreen")) {
+    if (ongoingLevel === 1) {
+      scenary1();
+    } else if (ongoingLevel === 2) {
+      scenary2();
+    } else if (ongoingLevel === 3) {
+      scenary3();
     }
-  }
 
-  for (let i = 0; i < ducks.length; i++) {
-    ducks[i].update();
-    ducks[i].draw();
-  }
+    for (let i = 0; i < foxes.length; i++) {
+      foxes[i].update();
+      foxes[i].draw();
 
-  if (bunny.y < height - grid * 5.5 && bunny.y > grid * 2) {
-    let ok = false;
-
-    for (let i = 0; i < ducks.length; i++) {
-      if (bunny.intersects(ducks[i])) {
-        ok = true;
-        bunny.attach(ducks[i]);
+      if (bunny.intersects(foxes[i])) {
+        resetGame();
       }
     }
-    if (!ok) {
-      resetGame();
+
+    for (let i = 0; i < ducks.length; i++) {
+      ducks[i].update();
+      ducks[i].draw();
     }
-  } else {
-    bunny.attach(null);
-  }
 
-  bunny.update();
-  bunny.draw();
-  startScreen();
+    if (
+      bunny.y < height - grid * 5.5 &&
+      bunny.y > height - grid * 8 &&
+      bunny.y > grid * 2
+    ) {
+      let ok = false;
 
-  //timer
-  let timePass = millis() - timer;
-  fill(255, 0, 0);
-  textSize(20);
-  text("Timer:" + Math.floor((timeLimit - timePass) / 1000), 400, 30);
+      for (let i = 0; i < ducks.length; i++) {
+        if (bunny.intersects(ducks[i])) {
+          ok = true;
+          bunny.attach(ducks[i]);
+        }
+      }
+      if (!ok) {
+        resetGame();
+      }
+    } else {
+      bunny.attach(null);
+    }
 
-  if (timePass > timeLimit) {
-    gameMode = "gameOver";
+    bunny.update();
+    bunny.draw();
+    startScreen();
+
+    //timer
+    let timePass = millis() - timer;
+    fill(0, 0, 0);
+    textSize(20);
+    text("Timer: " + Math.floor((timeLimit - timePass) / 1000), 400, 30);
+
+    if (timePass > timeLimit) {
+      gameMode = "gameOver";
+    }
+
+    push();
+    fill(0, 0, 0);
+    textSize(20);
+    text("Level: " + ongoingLevel, 15, 30);
+    pop();
   }
 }
 
@@ -429,24 +596,23 @@ function keyPressed() {
     bunny.move(-1, 0);
   } else if (key === "s") {
     gameMode = "game" && ongoingLevel == 1;
-  } else if (key === "b") {
+  } else if (key === "b" && gameMode === "rules") {
     gameMode = "start";
   } else if (key === "r") {
     resetGame();
     timer = millis();
     gameMode = "start";
-    startScreen();
   }
 }
 
 function mousePressed() {
-  if (mouseX > 10 && mouseX < 150 && mouseY > 200 && mouseY < 300) {
+  if (
+    mouseX > 10 &&
+    mouseX < 150 &&
+    mouseY > 200 &&
+    mouseY < 300 &&
+    gameMode === "start"
+  ) {
     gameMode = "rules";
-  }
-
-  if (gameMode === "gameOver") {
-    resetGame();
-    gameMode = "start";
-    startScreen();
   }
 }
