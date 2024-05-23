@@ -636,8 +636,8 @@ function rulesScreen() {
 
 //SETUP
 function setup() {
-  createCanvas(500, 600);
-  frameRate(20);
+  createCanvas(500, 550);
+  frameRate(30);
   resetGame();
 
   let index = 0;
