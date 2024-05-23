@@ -9,7 +9,7 @@ let foxes = [];
 let timer;
 let timeLimit = 20000;
 let gameMode = "start";
-let gameIsRunning = false;
+let gameIsRunning = true;
 let ongoingLevel = 1;
 
 //CLASSES
@@ -42,9 +42,10 @@ class Dimensions {
 }
 
 class Bunny extends Dimensions {
-  constructor(x, y, width, height) {
+  constructor(x, y, width, height, size) {
     super(x, y, width, width, height);
     this.attached = null;
+    this.size = size;
   }
 
   attach(duck) {
@@ -55,13 +56,115 @@ class Bunny extends Dimensions {
     if (this.attached != null) {
       this.x += this.attached.speed;
     }
-
-    this.x = constrain(this.x, 0, width - this.width);
   }
 
   draw() {
-    fill(0, 255, 0, 200);
-    rect(this.x, this.y, this.width, this.width);
+    //288, 522
+    if (ongoingLevel === 1) {
+      //body
+      fill(255, 255, 255, 200);
+      rect(this.x, this.y, this.width * 0.7, this.width * 0.9);
+      //ears
+      fill(255, 255, 255, 200);
+      rect(this.x * 1.02, this.y, this.width * 0.2, this.width * 0.3);
+      rect(this.x * 1.055, this.y, this.width * 0.2, this.width * 0.3);
+      fill(255, 184, 191, 200);
+      rect(this.x * 1.03, this.y, this.width * 0.08, this.width * 0.2);
+      rect(this.x * 1.065, this.y, this.width * 0.08, this.width * 0.2);
+      //eyes
+      fill(0, 0, 0);
+      rect(
+        this.x * 1.025,
+        this.y + this.height * 0.35,
+        this.width * 0.1,
+        this.width * 0.1
+      );
+      rect(
+        this.x * 1.065,
+        this.y + this.height * 0.35,
+        this.width * 0.1,
+        this.width * 0.1
+      );
+      //nose
+      fill(227, 28, 121, 200);
+      rect(
+        this.x * 1.045,
+        this.y + this.height * 0.45,
+        this.width * 0.1,
+        this.width * 0.1
+      );
+    }
+
+    // 230 & 520
+
+    if (ongoingLevel === 2) {
+      //body
+      fill(255, 255, 255, 200);
+      rect(this.x, this.y, this.width * 0.7, this.width * 0.9);
+      //ears
+      fill(255, 255, 255, 200);
+      rect(this.x * 1.02, this.y, this.width * 0.2, this.width * 0.3);
+      rect(this.x * 1.055, this.y, this.width * 0.2, this.width * 0.3);
+      fill(255, 184, 191, 200);
+      rect(this.x * 1.03, this.y, this.width * 0.08, this.width * 0.2);
+      rect(this.x * 1.065, this.y, this.width * 0.08, this.width * 0.2);
+      //eyes
+      fill(0, 0, 0);
+      rect(
+        this.x * 1.025,
+        this.y + this.height * 0.35,
+        this.width * 0.1,
+        this.width * 0.1
+      );
+      rect(
+        this.x * 1.065,
+        this.y + this.height * 0.35,
+        this.width * 0.1,
+        this.width * 0.1
+      );
+      //nose
+      fill(227, 28, 121, 200);
+      rect(
+        this.x * 1.045,
+        this.y + this.height * 0.45,
+        this.width * 0.1,
+        this.width * 0.1
+      );
+    }
+    if (ongoingLevel === 3) {
+      //body
+      fill(255, 255, 255, 200);
+      rect(this.x, this.y, this.width * 0.7, this.width * 0.9);
+      //ears
+      fill(255, 255, 255, 200);
+      rect(this.x * 1.02, this.y, this.width * 0.2, this.width * 0.3);
+      rect(this.x * 1.055, this.y, this.width * 0.2, this.width * 0.3);
+      fill(255, 184, 191, 200);
+      rect(this.x * 1.03, this.y, this.width * 0.08, this.width * 0.2);
+      rect(this.x * 1.065, this.y, this.width * 0.08, this.width * 0.2);
+      //eyes
+      fill(0, 0, 0);
+      rect(
+        this.x * 1.025,
+        this.y + this.height * 0.35,
+        this.width * 0.1,
+        this.width * 0.1
+      );
+      rect(
+        this.x * 1.065,
+        this.y + this.height * 0.35,
+        this.width * 0.1,
+        this.width * 0.1
+      );
+      //nose
+      fill(227, 28, 121, 200);
+      rect(
+        this.x * 1.045,
+        this.y + this.height * 0.45,
+        this.width * 0.1,
+        this.width * 0.1
+      );
+    }
   }
 
   move(xdir, ydir) {
@@ -78,31 +181,142 @@ class Bunny extends Dimensions {
       console.log("Finished second level");
       setupLevel3();
     } else if (ongoingLevel === 3 && this.y < 30) {
+      bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+      bunny.attach(null);
+      timer = millis();
       console.log("You Won");
-      gameMode = "wonGame";
-      wonGameScreen();
+      gameMode = "gameWon";
     }
   }
 }
 
 class Fox extends Dimensions {
-  constructor(x, y, width, height, speed) {
+  constructor(x, y, width, height, speed, size) {
     super(x, y, width, height);
     this.speed = speed;
+    this.size = size;
+    // this.reversed = reversed;
   }
 
   draw() {
+    // translate(this.x, this.y);
+
+    // if (this.reversed === true) {
+    //   translate(this.width, 0);
+    //   scale(-1, 1);
+    // }
+
+    //body
+    fill(252, 76, 2);
+    rect(
+      this.x + this.width * 0.3,
+      this.y + this.height * 0.4,
+      this.width * 0.9,
+      this.height * 0.5
+    );
+    // head
+    fill(252, 76, 2);
+    rect(
+      this.x + this.width * 0.9,
+      this.y + this.height * 0.4,
+      this.width * 0.3,
+      this.height * 0.5
+    );
+    //ears
+    fill(252, 76, 2);
+    triangle(
+      this.x + this.width * 0.96,
+      this.y + this.height * 0.4,
+      this.x + this.width * 1.0,
+      this.y + this.height * 0.5,
+      this.x + this.width * 0.96,
+      this.y + this.height * 0.6
+    );
+    triangle(
+      this.x + this.width * 0.96,
+      this.y + this.height * 0.67,
+      this.x + this.width * 1.0,
+      this.y + this.height * 0.77,
+      this.x + this.width * 0.96,
+      this.y + this.height * 0.87
+    );
+    //tail
+    fill(252, 76, 2);
+    ellipse(
+      this.x + this.width * 0.2,
+      this.y + this.height * 0.65,
+      this.width * 0.7,
+      this.height * 0.4
+    );
     fill(255);
-    rect(this.x, this.y, this.width, this.height);
+    ellipse(
+      this.x + this.width * 0.01,
+      this.y + this.height * 0.65,
+      this.width * 0.3,
+      this.height * 0.3
+    );
+    //eyes
+    fill(0);
+    rect(
+      this.x + this.width * 1.1,
+      this.y + this.height * 0.48,
+      this.width * 0.04,
+      this.height * 0.1
+    );
+
+    rect(
+      this.x + this.width * 1.1,
+      this.y + this.height * 0.7,
+      this.width * 0.04,
+      this.height * 0.1
+    );
+    //nose
+    fill(252, 76, 2);
+    ellipse(
+      this.x + this.width * 1.22,
+      this.y + this.height * 0.65,
+      this.width * 0.15,
+      this.height * 0.15
+    );
+    fill(98, 47, 34);
+    ellipse(
+      this.x + this.width * 1.27,
+      this.y + this.height * 0.65,
+      this.width * 0.07,
+      this.height * 0.11
+    );
+    //triangle(this.x + this.width * 1.2, this.y + this.height * 0.55, this.x + this.width * 1.4, this.y + this.height * 0.65, this.x + this.width * 1.2, this.y + this.height * 0.75);
   }
 
   update() {
-    this.x += this.speed;
+    if (ongoingLevel === 1) {
+      this.x += this.speed;
 
-    if (this.speed > 0 && this.x > width + grid) {
-      this.x = -this.width - grid;
-    } else if (this.speed < 0 && this.x < -this.width - grid) {
-      this.x = width + grid;
+      if (this.speed > 0 && this.x > width + grid) {
+        this.x = -this.width - grid;
+      } else if (this.speed < 0 && this.x < -this.width - grid) {
+        this.x = width + grid;
+      }
+    }
+
+    if (ongoingLevel === 2) {
+      this.x += this.speed;
+
+      if (this.speed > 0 && this.x > width + grid) {
+        this.x = -this.width - grid;
+      } else if (this.speed < 0 && this.x < -this.width - grid) {
+        this.x = width + grid;
+      }
+    }
+
+    if (ongoingLevel === 3) {
+      this.x += this.speed;
+
+      if (this.speed > 0 && this.x > width + grid) {
+        this.x = -this.width - grid;
+      } else if (this.speed < 0 && this.x < -this.width - grid) {
+        this.x = width + grid;
+      }
     }
   }
 }
@@ -114,25 +328,65 @@ class Duck {
     this.width = width;
     this.height = height;
     this.speed = speed;
+    // this.reversed = reversed;
   }
 
   update() {
-    this.x += this.speed;
-    if (this.speed > 0 && this.x > width + grid) {
-      this.x = -this.width - grid;
-    } else if (this.speed < 0 && this.x < -this.width - grid) {
-      this.x = width + grid;
+    if (ongoingLevel === 1) {
+      this.x += this.speed;
+      if (this.speed > 0 && this.x > width + grid) {
+        this.x = -this.width - grid;
+      } else if (this.speed < 0 && this.x < -this.width - grid) {
+        this.x = width + grid;
+      }
+    }
+
+    if (ongoingLevel === 2) {
+      this.x += this.speed;
+      if (this.speed > 0 && this.x > width + grid) {
+        this.x = -this.width - grid;
+      } else if (this.speed < 0 && this.x < -this.width - grid) {
+        this.x = width + grid;
+      }
+    }
+
+    if (ongoingLevel === 3) {
+      this.x += this.speed;
+      if (this.speed > 0 && this.x > width + grid) {
+        this.x = -this.width - grid;
+      } else if (this.speed < 0 && this.x < -this.width - grid) {
+        this.x = width + grid;
+      }
     }
   }
 
   draw() {
-    fill(255, 255, 0);
-    rect(
-      this.x + this.width / 2,
-      this.y + this.height / 2,
-      this.width,
-      this.height
+    //body
+    fill(255, 255, 102);
+    ellipse(
+      this.x,
+      this.y + this.height / 1,
+      this.width / 2.1,
+      this.height / 1.7
     );
+
+    //head
+    fill(255, 255, 102);
+    ellipse(this.x, this.y + this.height / 1, this.width / 4, this.height / 3);
+
+    //beak
+    fill(255, 143, 0);
+    rect();
+
+    //eyes
+    fill(0);
+
+    fill(0);
+
+    //wings
+    fill(255, 255, 102);
+
+    fill(255, 255, 102);
   }
 }
 
@@ -233,24 +487,30 @@ function gameBackground() {
 }
 
 function scenary1() {
-  fill(0, 154, 23);
-  rect(0, 0, width, grid * 4.4);
+  fill(117, 204, 65);
+  rect(0, 0, width, grid * 4.5);
   rect(0, height - grid, width, grid);
   rect(0, height - grid * 5, width, grid);
+  fill(80, 200, 255);
+  rect(0, height - grid * 7, width, grid * 2);
 }
 
 function scenary2() {
-  fill(0, 154, 23);
-  rect(0, 0, width, grid * 2.9);
+  fill(117, 204, 65);
+  rect(0, 0, width, grid * 4.5);
   rect(0, height - grid, width, grid);
   rect(0, height - grid * 5, width, grid);
+  fill(80, 200, 255);
+  rect(0, height - grid * 7, width, grid * 2);
 }
 
 function scenary3() {
-  fill(0, 154, 23);
-  rect(0, 0, width, grid * 2.9);
+  fill(117, 204, 65);
+  rect(0, 0, width, grid * 4.5);
   rect(0, height - grid, width, grid);
   rect(0, height - grid * 5, width, grid);
+  fill(80, 200, 255);
+  rect(0, height - grid * 7, width, grid * 2);
 }
 
 function wonGameScreen() {
@@ -266,8 +526,8 @@ function wonGameScreen() {
     fill(0, 0, 0);
     textSize(25);
     textAlign(CENTER, CENTER);
-    text("GAME OVER!", 250, 270);
-    text("PRESS R TO RESTART GAME", 250, 320);
+    text("You Won! You saved the forest critters picnic!", 50, 170, 400, 200);
+    text("Click R to restart!", 50, 250, 400, 200);
     pop();
     timer = millis();
   }
@@ -382,25 +642,26 @@ function setup() {
   let index = 0;
 
   if (ongoingLevel === 1 && gameMode !== "rules") {
+    setupLevel1();
     gameIsRunning = true;
     timer = millis();
     // ROW 1
     for (let i = 0; i < 4; i++) {
-      let x = i * 300 + grid;
+      let x = i * 300 + 70;
       foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 1);
       index++;
     }
 
     // ROW 2
     for (let i = 0; i < 3; i++) {
-      let x = i * 200 + grid;
+      let x = i * 200 + 70;
       foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3.5);
       index++;
     }
 
     // ROW 3
-    for (let i = 0; i < 4; i++) {
-      let x = i * 150 + grid;
+    for (let i = 0; i < 3; i++) {
+      let x = i * 150 + 70;
       foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1.2);
       index++;
     }
@@ -422,93 +683,97 @@ function setup() {
   }
 
   if (ongoingLevel === 2) {
-    bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
-    bunny.attach(null);
+    setupLevel2();
     gameIsRunning = true;
     timer = millis();
+
+    foxes = [];
+    ducks = [];
     // ROW 1
-    for (let i = 0; i < 4; i++) {
-      let x = i * 300;
-      foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 2);
+    for (let i = 0; i < 7; i++) {
+      let x = i * 300 + 70;
+      foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 1);
       index++;
     }
 
     // ROW 2
-    for (let i = 0; i < 3; i++) {
-      let x = i * 200 + 150;
+    for (let i = 0; i < 8; i++) {
+      let x = i * 200 + 70;
       foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3.5);
       index++;
     }
 
     // ROW 3
-    for (let i = 0; i < 4; i++) {
-      let x = i * 150 + 50;
+    for (let i = 0; i < 8; i++) {
+      let x = i * 150 + 70;
       foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1.2);
       index++;
     }
 
-    // ROW 5
+    // ROW 4
     index = 0;
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       let x = i * 250 + 100;
-      ducks[index] = new Duck(x, height - grid * 6.5, grid * 0.5, grid, 2.3);
+      ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 2.3);
       index++;
     }
 
-    // ROW 6
-    for (let i = 0; i < 4; i++) {
+    // ROW 5
+    for (let i = 0; i < 2; i++) {
       let x = i * 200 + 30;
-      ducks[index] = new Duck(x, height - grid * 7.5, grid * 0.5, grid, -1.3);
+      ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -1.3);
       index++;
     }
   }
 
   if (ongoingLevel === 3) {
-    bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
-    bunny.attach(null);
+    setupLevel3();
     gameIsRunning = true;
     timer = millis();
 
+    foxes = [];
+    ducks = [];
     // ROW 1
     for (let i = 0; i < 4; i++) {
-      let x = i * 300;
-      foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 2);
+      let x = i * 300 + 70;
+      foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 1);
       index++;
     }
 
     // ROW 2
     for (let i = 0; i < 3; i++) {
-      let x = i * 200 + 150;
+      let x = i * 200 + 70;
       foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3.5);
       index++;
     }
 
     // ROW 3
-    for (let i = 0; i < 4; i++) {
-      let x = i * 150 + 25;
+    for (let i = 0; i < 3; i++) {
+      let x = i * 150 + 70;
       foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1.2);
       index++;
     }
 
-    // ROW 5
+    // ROW 4
     index = 0;
     for (let i = 0; i < 3; i++) {
       let x = i * 250 + 100;
-      ducks[index] = new Duck(x, height - grid * 6.5, grid * 0.5, grid, 2.3);
+      ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 2.3);
       index++;
     }
 
-    // ROW 6
+    // ROW 5
     for (let i = 0; i < 4; i++) {
       let x = i * 200 + 30;
-      ducks[index] = new Duck(x, height - grid * 7.5, grid * 0.5, grid, -1.3);
+      ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -1.3);
       index++;
     }
   }
 }
 
 function draw() {
-  background(0);
+  background(100);
+  noStroke();
 
   //ScreenCurrentState
   if (gameMode === "start") {
@@ -520,6 +785,8 @@ function draw() {
   } else if (gameMode === "gameOver") {
     gameOverScreen();
     gameIsRunning = false;
+  } else if (gameMode === "gameWon") {
+    wonGameScreen();
   } else if ((gameMode = "gameScreen")) {
     if (ongoingLevel === 1) {
       scenary1();
@@ -565,7 +832,6 @@ function draw() {
 
     bunny.update();
     bunny.draw();
-    startScreen();
 
     //timer
     let timePass = millis() - timer;
