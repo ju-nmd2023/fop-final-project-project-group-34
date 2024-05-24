@@ -834,6 +834,8 @@ function draw() {
     bunny.update();
     bunny.draw();
 
+    //the following 7 lines of code was from: https://chatgpt.com/share/5956644f-8300-4379-8a0b-a50cc4756d00 Accessed: 2024-05-10
+
     //timer
     let timePass = millis() - timer;
     fill(0, 0, 0);
