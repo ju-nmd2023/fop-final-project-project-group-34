@@ -693,21 +693,21 @@ function setup() {
     // ROW 1
     for (let i = 0; i < 7; i++) {
       let x = i * 300 + 70;
-      foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 1);
+      foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, -5);
       index++;
     }
 
     // ROW 2
     for (let i = 0; i < 8; i++) {
       let x = i * 200 + 70;
-      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3.5);
+      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, 2);
       index++;
     }
 
     // ROW 3
     for (let i = 0; i < 8; i++) {
       let x = i * 150 + 70;
-      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1.2);
+      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 3);
       index++;
     }
 
@@ -715,14 +715,14 @@ function setup() {
     index = 0;
     for (let i = 0; i < 2; i++) {
       let x = i * 250 + 100;
-      ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 2.3);
+      ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 4);
       index++;
     }
 
     // ROW 5
     for (let i = 0; i < 2; i++) {
       let x = i * 200 + 30;
-      ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -1.3);
+      ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -4);
       index++;
     }
   }
