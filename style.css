@@ -3,10 +3,7 @@
 html,
 body {
   height: 100%;
-}
-
-* {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  flex-direction: column;
 }
 
 body {
@@ -18,5 +15,11 @@ body {
 
   /* This centers our sketch vertically. */
   align-items: center;
-  background-color: #ff9050;
+  background-image: url(picnicbackground.png);
+}
+
+h1 {
+  font-family: cursive;
+  color: darkred;
+  font-size: 50pt;
 }

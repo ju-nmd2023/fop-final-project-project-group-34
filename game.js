@@ -59,112 +59,41 @@ class Bunny extends Dimensions {
   }
 
   draw() {
-    //288, 522
-    if (ongoingLevel === 1) {
-      //body
-      fill(255, 255, 255, 200);
-      rect(this.x, this.y, this.width * 0.7, this.width * 0.9);
-      //ears
-      fill(255, 255, 255, 200);
-      rect(this.x * 1.02, this.y, this.width * 0.2, this.width * 0.3);
-      rect(this.x * 1.055, this.y, this.width * 0.2, this.width * 0.3);
-      fill(255, 184, 191, 200);
-      rect(this.x * 1.03, this.y, this.width * 0.08, this.width * 0.2);
-      rect(this.x * 1.065, this.y, this.width * 0.08, this.width * 0.2);
-      //eyes
-      fill(0, 0, 0);
-      rect(
-        this.x * 1.025,
-        this.y + this.height * 0.35,
-        this.width * 0.1,
-        this.width * 0.1
-      );
-      rect(
-        this.x * 1.065,
-        this.y + this.height * 0.35,
-        this.width * 0.1,
-        this.width * 0.1
-      );
-      //nose
-      fill(227, 28, 121, 200);
-      rect(
-        this.x * 1.045,
-        this.y + this.height * 0.45,
-        this.width * 0.1,
-        this.width * 0.1
-      );
-    }
-
-    // 230 & 520
-
-    if (ongoingLevel === 2) {
-      //body
-      fill(255, 255, 255, 200);
-      rect(this.x, this.y, this.width * 0.7, this.width * 0.9);
-      //ears
-      fill(255, 255, 255, 200);
-      rect(this.x * 1.02, this.y, this.width * 0.2, this.width * 0.3);
-      rect(this.x * 1.055, this.y, this.width * 0.2, this.width * 0.3);
-      fill(255, 184, 191, 200);
-      rect(this.x * 1.03, this.y, this.width * 0.08, this.width * 0.2);
-      rect(this.x * 1.065, this.y, this.width * 0.08, this.width * 0.2);
-      //eyes
-      fill(0, 0, 0);
-      rect(
-        this.x * 1.025,
-        this.y + this.height * 0.35,
-        this.width * 0.1,
-        this.width * 0.1
-      );
-      rect(
-        this.x * 1.065,
-        this.y + this.height * 0.35,
-        this.width * 0.1,
-        this.width * 0.1
-      );
-      //nose
-      fill(227, 28, 121, 200);
-      rect(
-        this.x * 1.045,
-        this.y + this.height * 0.45,
-        this.width * 0.1,
-        this.width * 0.1
-      );
-    }
-    if (ongoingLevel === 3) {
-      //body
-      fill(255, 255, 255, 200);
-      rect(this.x, this.y, this.width * 0.7, this.width * 0.9);
-      //ears
-      fill(255, 255, 255, 200);
-      rect(this.x * 1.02, this.y, this.width * 0.2, this.width * 0.3);
-      rect(this.x * 1.055, this.y, this.width * 0.2, this.width * 0.3);
-      fill(255, 184, 191, 200);
-      rect(this.x * 1.03, this.y, this.width * 0.08, this.width * 0.2);
-      rect(this.x * 1.065, this.y, this.width * 0.08, this.width * 0.2);
-      //eyes
-      fill(0, 0, 0);
-      rect(
-        this.x * 1.025,
-        this.y + this.height * 0.35,
-        this.width * 0.1,
-        this.width * 0.1
-      );
-      rect(
-        this.x * 1.065,
-        this.y + this.height * 0.35,
-        this.width * 0.1,
-        this.width * 0.1
-      );
-      //nose
-      fill(227, 28, 121, 200);
-      rect(
-        this.x * 1.045,
-        this.y + this.height * 0.45,
-        this.width * 0.1,
-        this.width * 0.1
-      );
-    }
+    push();
+    stroke(1);
+    //body
+    fill(255, 255, 255);
+    rect(this.x, this.y, this.width * 0.7, this.width * 0.9);
+    //ears
+    fill(255, 255, 255, 200);
+    rect(this.x * 1.02, this.y, this.width * 0.2, this.width * 0.3);
+    rect(this.x * 1.055, this.y, this.width * 0.2, this.width * 0.3);
+    fill(255, 184, 191, 200);
+    rect(this.x * 1.03, this.y, this.width * 0.08, this.width * 0.2);
+    rect(this.x * 1.065, this.y, this.width * 0.08, this.width * 0.2);
+    //eyes
+    fill(0, 0, 0);
+    rect(
+      this.x * 1.025,
+      this.y + this.height * 0.35,
+      this.width * 0.1,
+      this.width * 0.1
+    );
+    rect(
+      this.x * 1.065,
+      this.y + this.height * 0.35,
+      this.width * 0.1,
+      this.width * 0.1
+    );
+    //nose
+    fill(227, 28, 121, 200);
+    rect(
+      this.x * 1.045,
+      this.y + this.height * 0.45,
+      this.width * 0.1,
+      this.width * 0.1
+    );
+    pop();
   }
 
   move(xdir, ydir) {
@@ -199,14 +128,8 @@ class Fox extends Dimensions {
   }
 
   draw() {
-    // translate(this.x, this.y);
-
-    // if (this.reversed === true) {
-    //   translate(this.width, 0);
-    //   scale(-1, 1);
-    // }
-
-    //body
+    push();
+    stroke(1);
     fill(252, 76, 2);
     rect(
       this.x + this.width * 0.3,
@@ -285,38 +208,16 @@ class Fox extends Dimensions {
       this.width * 0.07,
       this.height * 0.11
     );
-    //triangle(this.x + this.width * 1.2, this.y + this.height * 0.55, this.x + this.width * 1.4, this.y + this.height * 0.65, this.x + this.width * 1.2, this.y + this.height * 0.75);
+    pop();
   }
 
   update() {
-    if (ongoingLevel === 1) {
-      this.x += this.speed;
+    this.x += this.speed;
 
-      if (this.speed > 0 && this.x > width + grid) {
-        this.x = -this.width - grid;
-      } else if (this.speed < 0 && this.x < -this.width - grid) {
-        this.x = width + grid;
-      }
-    }
-
-    if (ongoingLevel === 2) {
-      this.x += this.speed;
-
-      if (this.speed > 0 && this.x > width + grid) {
-        this.x = -this.width - grid;
-      } else if (this.speed < 0 && this.x < -this.width - grid) {
-        this.x = width + grid;
-      }
-    }
-
-    if (ongoingLevel === 3) {
-      this.x += this.speed;
-
-      if (this.speed > 0 && this.x > width + grid) {
-        this.x = -this.width - grid;
-      } else if (this.speed < 0 && this.x < -this.width - grid) {
-        this.x = width + grid;
-      }
+    if (this.speed > 0 && this.x > width + grid) {
+      this.x = -this.width - grid;
+    } else if (this.speed < 0 && this.x < -this.width - grid) {
+      this.x = width + grid;
     }
   }
 }
@@ -332,35 +233,17 @@ class Duck {
   }
 
   update() {
-    if (ongoingLevel === 1) {
-      this.x += this.speed;
-      if (this.speed > 0 && this.x > width + grid) {
-        this.x = -this.width - grid;
-      } else if (this.speed < 0 && this.x < -this.width - grid) {
-        this.x = width + grid;
-      }
-    }
-
-    if (ongoingLevel === 2) {
-      this.x += this.speed;
-      if (this.speed > 0 && this.x > width + grid) {
-        this.x = -this.width - grid;
-      } else if (this.speed < 0 && this.x < -this.width - grid) {
-        this.x = width + grid;
-      }
-    }
-
-    if (ongoingLevel === 3) {
-      this.x += this.speed;
-      if (this.speed > 0 && this.x > width + grid) {
-        this.x = -this.width - grid;
-      } else if (this.speed < 0 && this.x < -this.width - grid) {
-        this.x = width + grid;
-      }
+    this.x += this.speed;
+    if (this.speed > 0 && this.x > width + grid) {
+      this.x = -this.width - grid;
+    } else if (this.speed < 0 && this.x < -this.width - grid) {
+      this.x = width + grid;
     }
   }
 
   draw() {
+    push();
+    stroke(1);
     //body
     fill(255, 255, 102);
     ellipse(
@@ -376,17 +259,13 @@ class Duck {
 
     //beak
     fill(255, 143, 0);
-    rect();
-
-    //eyes
-    fill(0);
-
-    fill(0);
-
-    //wings
-    fill(255, 255, 102);
-
-    fill(255, 255, 102);
+    ellipse(
+      this.x * 1.01,
+      this.y + this.height / 1,
+      this.width / 6,
+      this.height / 6
+    );
+    pop();
   }
 }
 
@@ -487,30 +366,95 @@ function gameBackground() {
 }
 
 function scenary1() {
+  push();
+  stroke(1);
   fill(117, 204, 65);
   rect(0, 0, width, grid * 4.5);
   rect(0, height - grid, width, grid);
   rect(0, height - grid * 5, width, grid);
   fill(80, 200, 255);
   rect(0, height - grid * 7, width, grid * 2);
+
+  // Cake
+  fill(244, 241, 226);
+  rect(230, 60, 50, 30);
+  fill(255, 16, 16);
+  rect(230, 65, 50, 5);
+  rect(230, 75, 50, 5);
+  fill(255, 255, 255);
+  ellipse(235, 55, 15);
+  ellipse(245, 55, 15);
+  ellipse(255, 55, 15);
+  ellipse(265, 55, 15);
+  ellipse(275, 55, 15);
+
+  ellipse(235, 85, 15);
+  ellipse(245, 85, 15);
+  ellipse(255, 85, 15);
+  ellipse(265, 85, 15);
+  ellipse(275, 85, 15);
+  fill(255, 16, 16);
+  ellipse(255, 50, 10);
+  pop();
 }
 
 function scenary2() {
+  push();
+  stroke(1);
   fill(117, 204, 65);
   rect(0, 0, width, grid * 4.5);
   rect(0, height - grid, width, grid);
   rect(0, height - grid * 5, width, grid);
   fill(80, 200, 255);
   rect(0, height - grid * 7, width, grid * 2);
+
+  //Food
+  //Baguette
+  fill(243, 225, 143);
+  ellipse(240, 60, 90, 20);
+  fill(208, 192, 126);
+  ellipse(215, 55, 7, 10);
+  ellipse(230, 55, 7, 10);
+  ellipse(245, 55, 7, 10);
+  ellipse(260, 55, 7, 10);
+  pop();
 }
 
 function scenary3() {
+  push();
+  stroke(1);
   fill(117, 204, 65);
   rect(0, 0, width, grid * 4.5);
   rect(0, height - grid, width, grid);
   rect(0, height - grid * 5, width, grid);
   fill(80, 200, 255);
   rect(0, height - grid * 7, width, grid * 2);
+
+  //food
+  //Picnic basket
+  fill(213, 184, 95);
+  rect(210, 60, 70, 50);
+  rect(240, 40, 10, 20);
+  fill(255, 16, 16);
+  rect(210, 60, 70, 10);
+  fill(255, 255, 255);
+  rect(210, 60, 10, 10);
+  rect(230, 60, 10, 10);
+  rect(250, 60, 10, 10);
+  rect(270, 60, 10, 10);
+  fill(134, 110, 10);
+  rect(210, 70, 70, 5);
+  rect(210, 80, 70, 5);
+  rect(210, 90, 70, 5);
+  rect(210, 100, 70, 5);
+  rect(210, 70, 5, 40);
+  rect(220, 70, 5, 40);
+  rect(230, 70, 5, 40);
+  rect(240, 70, 5, 40);
+  rect(250, 70, 5, 40);
+  rect(260, 70, 5, 40);
+  rect(270, 70, 5, 40);
+  pop();
 }
 
 function wonGameScreen() {
@@ -530,7 +474,288 @@ function wonGameScreen() {
     text("Click R to restart!", 50, 250, 400, 200);
     pop();
     timer = millis();
+
+    //squirrel
+    push();
+    translate(200, -350);
+    noStroke();
+    //main color
+    fill(173, 101, 10);
+    rect(230, 500, 25, 20);
+    rect(240, 495, 5, 5);
+    rect(250, 495, 5, 5);
+    rect(235, 520, 15, 5);
+    rect(230, 525, 25, 25);
+    rect(255, 530, 5, 20);
+    rect(225, 545, 10, 5);
+    rect(260, 520, 10, 25);
+    rect(265, 515, 5, 5);
+    rect(270, 510, 10, 25);
+    rect(280, 515, 5, 15);
+    rect(270, 535, 5, 5);
+    rect(285, 520, 5, 5);
+
+    //shading
+    fill(211, 129, 26);
+    rect(230, 525, 15, 20);
+
+    //blush
+    fill(246, 128, 164);
+    rect(250, 510, 5, 5);
+
+    //outline
+    fill(0, 0, 0);
+    rect(230, 500, 5, 10);
+    rect(225, 510, 5, 10);
+    rect(230, 520, 5, 5);
+    rect(225, 525, 5, 20);
+    rect(220, 545, 5, 5);
+    rect(225, 550, 35, 5);
+    rect(235, 545, 5, 5);
+    rect(255, 545, 10, 5);
+    rect(265, 540, 10, 5);
+    rect(275, 535, 5, 5);
+    rect(280, 530, 5, 5);
+    rect(285, 525, 5, 5);
+    rect(290, 520, 5, 5);
+    rect(285, 515, 5, 5);
+    rect(280, 510, 5, 5);
+    rect(270, 505, 10, 5);
+    rect(265, 510, 5, 5);
+    rect(260, 515, 5, 5);
+    rect(255, 520, 5, 10);
+    rect(250, 520, 5, 5);
+    rect(255, 495, 5, 25);
+    rect(245, 495, 5, 5);
+    rect(235, 495, 5, 5);
+    rect(240, 490, 5, 5);
+    rect(250, 490, 5, 5);
+    rect(240, 535, 5, 5);
+    rect(230, 535, 5, 5);
+    rect(245, 505, 5, 5);
+    rect(235, 510, 10, 5);
+    pop();
+
+    //hedgehog
+    push();
+    noStroke();
+    translate(10, -350);
+    //main color
+    fill(228, 197, 127);
+    rect(230, 510, 30, 20);
+    rect(225, 515, 40, 20);
+    rect(220, 520, 50, 20);
+    rect(215, 530, 5, 5);
+    rect(230, 540, 35, 5);
+    rect(235, 545, 5, 5);
+    rect(255, 545, 5, 5);
+
+    //second color
+    fill(117, 58, 15);
+    rect(230, 510, 30, 5);
+    rect(225, 515, 40, 5);
+    rect(220, 520, 5, 5);
+    rect(240, 520, 35, 5);
+    rect(245, 525, 30, 5);
+    rect(240, 530, 30, 5);
+    rect(250, 535, 20, 5);
+    rect(260, 540, 5, 5);
+
+    //shading
+    fill(140, 72, 24);
+    rect(235, 510, 5, 5);
+    rect(255, 520, 5, 5);
+    rect(250, 510, 5, 5);
+    rect(260, 525, 5, 5);
+    rect(250, 535, 5, 5);
+    rect(265, 535, 5, 5);
+    rect(260, 515, 5, 5);
+    rect(240, 530, 5, 5);
+
+    //blush
+    fill(246, 128, 164);
+    rect(230, 535, 10, 5);
+
+    //outline
+    fill(0, 0, 0);
+    rect(230, 505, 30, 5);
+    rect(260, 510, 5, 5);
+    rect(265, 515, 5, 5);
+    rect(270, 520, 5, 20);
+    rect(265, 540, 5, 5);
+    rect(260, 545, 5, 5);
+    rect(240, 545, 15, 5);
+    rect(230, 545, 5, 5);
+    rect(220, 540, 10, 5);
+    rect(215, 535, 5, 5);
+    rect(210, 530, 5, 5);
+    rect(215, 520, 5, 10);
+    rect(220, 515, 5, 5);
+    rect(225, 510, 5, 5);
+    rect(225, 525, 5, 10);
+    pop();
+
+    //Bunny
+    push();
+    translate(-170, -350);
+    noStroke();
+    //maincolor
+    fill(248, 237, 212);
+    rect(230, 495, 15, 15);
+    rect(225, 510, 20, 25);
+    rect(220, 515, 30, 20);
+    rect(250, 520, 15, 15);
+    rect(235, 535, 15, 5);
+    rect(230, 540, 10, 5);
+    rect(260, 525, 10, 15);
+    rect(250, 540, 15, 5);
+    rect(270, 520, 5, 5);
+
+    //blush
+    fill(246, 128, 164);
+    rect(235, 530, 10, 5);
+
+    //outline
+    fill(0, 0, 0);
+    rect(225, 495, 5, 15);
+    rect(230, 490, 5, 5);
+    rect(240, 490, 5, 5);
+    rect(235, 495, 5, 15);
+    rect(245, 495, 5, 20);
+    rect(220, 510, 5, 5);
+    rect(215, 515, 5, 20);
+    rect(220, 535, 15, 5);
+    rect(225, 540, 5, 10);
+    rect(225, 545, 15, 5);
+    rect(240, 540, 10, 5);
+    rect(250, 535, 10, 5);
+    rect(245, 545, 20, 5);
+    rect(265, 540, 5, 5);
+    rect(270, 525, 5, 15);
+    rect(275, 520, 5, 5);
+    rect(270, 515, 5, 5);
+    rect(265, 520, 5, 5);
+    rect(250, 515, 15, 5);
+    rect(230, 520, 5, 10);
+    pop();
+    //fox
+    push();
+    noStroke();
+    translate(70, -50);
+
+    //main color
+    fill(255, 124, 33);
+    rect(230, 505, 60, 30);
+    rect(220, 495, 30, 30);
+    rect(285, 515, 10, 10);
+    rect(295, 510, 10, 20);
+    rect(300, 515, 20, 20);
+    rect(320, 520, 5, 20);
+    rect(325, 525, 5, 20);
+    rect(250, 500, 35, 5);
+    rect(235, 535, 50, 5);
+    rect(215, 500, 5, 20);
+    rect(245, 490, 5, 5);
+    rect(230, 490, 5, 5);
+    rect(210, 505, 5, 10);
+    rect(240, 540, 10, 10);
+    rect(270, 540, 10, 10);
+
+    //second color
+    fill(248, 237, 212);
+    rect(210, 505, 10, 10);
+    rect(215, 510, 10, 10);
+    rect(220, 515, 20, 10);
+    rect(230, 525, 20, 10);
+    rect(235, 520, 10, 20);
+    rect(320, 525, 10, 15);
+    rect(325, 540, 5, 5);
+    rect(315, 530, 5, 5);
+    rect(225, 490, 5, 5);
+    rect(240, 490, 5, 5);
+
+    //outlines
+    fill(0, 0, 0);
+    rect(210, 505, 5, 5);
+    rect(230, 500, 5, 10);
+    rect(250, 495, 35, 5);
+    rect(285, 500, 5, 5);
+    rect(290, 505, 5, 10);
+    rect(295, 505, 10, 5);
+    rect(305, 510, 15, 5);
+    rect(320, 515, 5, 5);
+    rect(325, 520, 5, 5);
+    rect(330, 525, 5, 20);
+    rect(326, 545, 5, 5);
+    rect(320, 540, 5, 5);
+    rect(300, 535, 20, 5);
+    rect(295, 530, 5, 5);
+    rect(290, 525, 5, 10);
+    rect(285, 535, 5, 5);
+    rect(280, 540, 5, 10);
+    rect(270, 545, 10, 5);
+    rect(250, 540, 20, 5);
+    rect(240, 545, 10, 5);
+    rect(235, 540, 5, 5);
+    rect(230, 535, 5, 5);
+    rect(225, 525, 5, 10);
+    rect(220, 525, 5, 5);
+    rect(215, 520, 5, 5);
+    rect(210, 515, 5, 5);
+    rect(205, 505, 5, 10);
+    rect(210, 500, 5, 5);
+    rect(215, 495, 5, 5);
+    rect(220, 490, 5, 5);
+    rect(225, 485, 10, 5);
+    rect(235, 490, 5, 5);
+    rect(240, 485, 10, 5);
+    rect(250, 490, 5, 5);
+    rect(205, 500, 5, 5);
+    pop();
   }
+  //duck
+  push();
+  noStroke();
+  translate(-90, -50);
+
+  //main color
+  fill(248, 237, 212);
+  rect(220, 525, 50, 20);
+  rect(225, 545, 40, 5);
+  rect(220, 500, 20, 30);
+  rect(240, 520, 20, 5);
+  rect(270, 530, 5, 5);
+
+  //beak
+  fill(255, 124, 33);
+  rect(210, 510, 20, 5);
+  rect(215, 515, 15, 5);
+
+  //shading
+  fill(234, 225, 211);
+  rect(240, 540, 15, 5);
+  rect(255, 535, 5, 5);
+
+  //outline
+  fill(0, 0, 0);
+  rect(230, 505, 5, 5);
+  rect(220, 505, 5, 5);
+  rect(220, 495, 20, 5);
+  rect(240, 500, 5, 20);
+  rect(240, 515, 20, 5);
+  rect(260, 520, 10, 5);
+  rect(270, 525, 5, 5);
+  rect(275, 530, 5, 5);
+  rect(270, 535, 5, 10);
+  rect(265, 545, 5, 5);
+  rect(225, 550, 40, 5);
+  rect(220, 545, 5, 5);
+  rect(215, 520, 5, 25);
+  rect(210, 515, 5, 5);
+  rect(205, 510, 5, 5);
+  rect(210, 505, 10, 5);
+  rect(215, 500, 5, 5);
+  pop();
 }
 
 function startScreen() {
@@ -623,7 +848,7 @@ function rulesScreen() {
     textSize(14);
     textAlign(CENTER, CENTER);
     text(
-      "Join three forest friends—a bunny, a hedgehog, and a squirrel—on their picnic day. But watch out! A thieving fox has stolen their goodies, and they must navigate various obstacles to reclaim them. Dodge obstacles while moving forward. Jump on moving platforms, like ducks in a river, to progress. Reach the end before time runs out, avoiding obstacles and rivers along the way. Game over if you touch an obstacle, fall in the river, or run out of time. Good Luck!",
+      "Join three forest friends—a bunny, a hedgehog, and a squirrel—on their picnic day. But watch out! A thieving fox has stolen their goodies, and Bunny must navigate various obstacles to reclaim them. Dodge obstacles while moving forward. Jump on moving platforms, like ducks in a river, to progress. Reach the end before time runs out, avoiding obstacles and rivers along the way. Game over if you touch an obstacle, fall in the river, or run out of time. Good Luck!",
       40,
       200,
       420,
@@ -634,7 +859,6 @@ function rulesScreen() {
   }
 }
 
-//SETUP
 function setup() {
   createCanvas(500, 550);
   frameRate(30);
@@ -647,7 +871,7 @@ function setup() {
     gameIsRunning = true;
     timer = millis();
     // ROW 1
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 2; i++) {
       let x = i * 300 + 70;
       foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 1);
       index++;
@@ -656,14 +880,14 @@ function setup() {
     // ROW 2
     for (let i = 0; i < 3; i++) {
       let x = i * 200 + 70;
-      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3.5);
+      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3);
       index++;
     }
 
     // ROW 3
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       let x = i * 150 + 70;
-      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1.2);
+      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1);
       index++;
     }
 
@@ -671,14 +895,14 @@ function setup() {
     index = 0;
     for (let i = 0; i < 3; i++) {
       let x = i * 250 + 100;
-      ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 2.3);
+      ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 4);
       index++;
     }
 
     // ROW 5
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 3; i++) {
       let x = i * 200 + 30;
-      ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -1.3);
+      ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -3);
       index++;
     }
   }
@@ -691,38 +915,38 @@ function setup() {
     foxes = [];
     ducks = [];
     // ROW 1
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 2; i++) {
       let x = i * 300 + 70;
-      foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, -5);
+      foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, -4);
       index++;
     }
 
     // ROW 2
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 3; i++) {
       let x = i * 200 + 70;
-      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, 2);
+      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, 5);
       index++;
     }
 
     // ROW 3
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 2; i++) {
       let x = i * 150 + 70;
-      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 3);
+      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, -2);
       index++;
     }
 
     // ROW 4
     index = 0;
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       let x = i * 250 + 100;
       ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 4);
       index++;
     }
 
     // ROW 5
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       let x = i * 200 + 30;
-      ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -4);
+      ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, 3);
       index++;
     }
   }
@@ -734,8 +958,8 @@ function setup() {
 
     foxes = [];
     ducks = [];
-    // ROW 1
-    for (let i = 0; i < 4; i++) {
+    // R0W 1
+    for (let i = 0; i < 2; i++) {
       let x = i * 300 + 70;
       foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 1);
       index++;
@@ -744,14 +968,14 @@ function setup() {
     // ROW 2
     for (let i = 0; i < 3; i++) {
       let x = i * 200 + 70;
-      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3.5);
+      foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3);
       index++;
     }
 
     // ROW 3
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       let x = i * 150 + 70;
-      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1.2);
+      foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1);
       index++;
     }
 
@@ -773,7 +997,7 @@ function setup() {
 }
 
 function draw() {
-  background(100);
+  background(173, 117, 85);
   noStroke();
 
   //ScreenCurrentState
