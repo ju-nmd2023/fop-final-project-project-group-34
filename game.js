@@ -2,12 +2,17 @@
 
 //GRID
 let grid = 50;
-
+// class variables
 let bunny;
 let ducks = [];
 let foxes = [];
+
+//timer variables
 let timer;
+//timelimit is 20000 milliseconds
 let timeLimit = 20000;
+
+//game variables
 let gameMode = "start";
 let gameIsRunning = true;
 let ongoingLevel = 1;
@@ -22,16 +27,19 @@ class Dimensions {
   }
 
   intersects(otherRectangle) {
+    //edges of the rectangles (cheacters like the bunny, fox and duck)
     let left = this.x;
     let right = this.x + this.width;
     let top = this.y;
     let bottom = this.y + this.height;
 
+    //sets the position of another rectangle (whatever character it is not)
     let oleft = otherRectangle.x;
     let oright = otherRectangle.x + otherRectangle.width;
     let otop = otherRectangle.y;
     let obottom = otherRectangle.y + otherRectangle.height;
 
+    //checks if the different rectangles overlaps
     return !(
       left >= oright ||
       right <= oleft ||
@@ -48,10 +56,12 @@ class Bunny extends Dimensions {
     this.size = size;
   }
 
+  //If attached - it's attached to duck
   attach(duck) {
     this.attached = duck;
   }
 
+  // if attached are not equal to null(if attached), bunny will follow allow with ducks speed
   update() {
     if (this.attached != null) {
       this.x += this.attached.speed;
@@ -96,12 +106,14 @@ class Bunny extends Dimensions {
     pop();
   }
 
+  //bunny's movement
   move(xdir, ydir) {
     this.x += xdir * grid;
     this.y += ydir * grid;
     this.winningZone();
   }
 
+  //checks if bunny has reached winning point and changes to the next level or the endscreen if you finish level 3
   winningZone() {
     if (ongoingLevel === 1 && this.y < 30) {
       console.log("Finished first level");
@@ -110,9 +122,13 @@ class Bunny extends Dimensions {
       console.log("Finished second level");
       setupLevel3();
     } else if (ongoingLevel === 3 && this.y < 30) {
+      //sets a new bunny at the startposition
       bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+      //deattaches bunny
       bunny.attach(null);
+      //resets timer
       timer = millis();
+      //changes to endscreen
       console.log("You Won");
       gameMode = "gameWon";
     }
@@ -124,7 +140,6 @@ class Fox extends Dimensions {
     super(x, y, width, height);
     this.speed = speed;
     this.size = size;
-    // this.reversed = reversed;
   }
 
   draw() {
@@ -212,10 +227,13 @@ class Fox extends Dimensions {
   }
 
   update() {
+    //if speed is positive, fox moves right, if negative, fox moves left
     this.x += this.speed;
 
+    //if speed is positive (moves right) and the fox has moved beyond the screen, it will reset from the left side
     if (this.speed > 0 && this.x > width + grid) {
       this.x = -this.width - grid;
+      //if speed is negative (moves right) and the fox has moved beyond the screen, it will reset from the right side
     } else if (this.speed < 0 && this.x < -this.width - grid) {
       this.x = width + grid;
     }
@@ -229,13 +247,16 @@ class Duck {
     this.width = width;
     this.height = height;
     this.speed = speed;
-    // this.reversed = reversed;
   }
 
   update() {
+    //if speed is positive, duck moves right, if negative, duck moves left
     this.x += this.speed;
+
+    //if speed is positive (moves right) and the duck has moved beyond the screen, it will reset from the left side
     if (this.speed > 0 && this.x > width + grid) {
       this.x = -this.width - grid;
+      //if speed is negative (moves right) and the duck has moved beyond the screen, it will reset from the right side
     } else if (this.speed < 0 && this.x < -this.width - grid) {
       this.x = width + grid;
     }
@@ -270,8 +291,11 @@ class Duck {
 }
 
 function resetGame() {
+  //sets level to the first level
   ongoingLevel = 1;
+  //resets the bunny by placing a new one at the starting point
   bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+  //deattaches bunny
   bunny.attach(null);
   gameIsRunning = true;
 }
@@ -368,6 +392,7 @@ function gameBackground() {
 function scenary1() {
   push();
   stroke(1);
+  //background
   fill(117, 204, 65);
   rect(0, 0, width, grid * 4.5);
   rect(0, height - grid, width, grid);
@@ -401,6 +426,7 @@ function scenary1() {
 function scenary2() {
   push();
   stroke(1);
+  //background
   fill(117, 204, 65);
   rect(0, 0, width, grid * 4.5);
   rect(0, height - grid, width, grid);
@@ -423,6 +449,7 @@ function scenary2() {
 function scenary3() {
   push();
   stroke(1);
+  //background
   fill(117, 204, 65);
   rect(0, 0, width, grid * 4.5);
   rect(0, height - grid, width, grid);
@@ -458,7 +485,9 @@ function scenary3() {
 }
 
 function wonGameScreen() {
+  //winning screen happens when the game is won
   if (gameMode === "gameWon") {
+    //game is no longer running
     gameIsRunning = false;
     gameBackground();
     push();
@@ -473,6 +502,7 @@ function wonGameScreen() {
     text("You Won! You saved the forest critters picnic!", 50, 170, 400, 200);
     text("Click R to restart!", 50, 250, 400, 200);
     pop();
+    //resets timer
     timer = millis();
 
     //squirrel
@@ -759,6 +789,7 @@ function wonGameScreen() {
 }
 
 function startScreen() {
+  //starts with startscreen
   if (gameMode == "start") {
     gameIsRunning = false;
     gameBackground();
@@ -792,7 +823,9 @@ function startScreen() {
 }
 
 function gameOverScreen() {
+  //gameover screen happens when the game is lost
   if (gameMode === "gameOver") {
+    //game is no longer running
     gameIsRunning = false;
     gameBackground();
     push();
@@ -807,35 +840,46 @@ function gameOverScreen() {
     text("GAME OVER!", 250, 270);
     text("PRESS R TO RESTART GAME", 250, 320);
     pop();
+    //resets timer
     timer = millis();
   }
 }
 
 function setupLevel1() {
+  //resets the bunny by placing a new one at the starting point
   bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+  //deattaches bunny
   bunny.attach(null);
   gameIsRunning = true;
   ongoingLevel = 1;
+  //resets timer
   timer = millis();
 }
 
 function setupLevel2() {
+  //resets the bunny by placing a new one at the starting point
   bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+  //deattaches bunny
   bunny.attach(null);
   gameIsRunning = true;
   ongoingLevel = 2;
+  //resets timer
   timer = millis();
 }
 
 function setupLevel3() {
+  //resets the bunny by placing a new one at the starting point
   bunny = new Bunny(width / 2 - grid / 2, height - grid, grid);
+  //deattaches bunny
   bunny.attach(null);
   gameIsRunning = true;
   ongoingLevel = 3;
+  //resets timer
   timer = millis();
 }
 
 function rulesScreen() {
+  //rules screen appears when gamemode is rules and the game isn't running
   if (gameMode == "rules" && gameIsRunning === false) {
     gameBackground();
     push();
@@ -855,6 +899,7 @@ function rulesScreen() {
       200
     );
     pop();
+    //resets timer
     timer = millis();
   }
 }
@@ -863,7 +908,7 @@ function setup() {
   createCanvas(500, 550);
   frameRate(30);
   resetGame();
-
+  //the row-index is zero
   let index = 0;
 
   if (ongoingLevel === 1 && gameMode !== "rules") {
@@ -871,38 +916,58 @@ function setup() {
     gameIsRunning = true;
     timer = millis();
     // ROW 1
+    //creates a row of foxes, with a maximum of 2 foxes in the row at the same time
     for (let i = 0; i < 2; i++) {
+      //sets the distance between the foxes
       let x = i * 300 + 70;
+      //sets the fox's x & y value, and the height and width, and lastly speed
       foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 1);
+      //puts the foxes in the index
       index++;
     }
 
     // ROW 2
+    //creates a row of foxes, with a maximum of 3 foxes in the row at the same time
     for (let i = 0; i < 3; i++) {
+      //sets the distance between the foxes
       let x = i * 200 + 70;
+      //sets the fox's x & y value, and the height and width, and lastly speed
       foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3);
+      //puts the foxes in the index
       index++;
     }
 
     // ROW 3
+    //creates a row of foxes, with a maximum of 2 foxes in the row at the same time
     for (let i = 0; i < 2; i++) {
+      //sets the distance between the foxes
       let x = i * 150 + 70;
+      //sets the fox's x & y value, and the height and width, and lastly speed
       foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1);
+      //puts the foxes in the index
       index++;
     }
 
     // ROW 4
     index = 0;
+    //creates a row of ducks, with a maximum of 3 ducks in the row at the same time
     for (let i = 0; i < 3; i++) {
+      //sets the distance between the ducks
       let x = i * 250 + 100;
+      //sets the duck's x & y value, and the height and width, and lastly speed
       ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 4);
+      //puts the ducks in the index
       index++;
     }
 
     // ROW 5
+    //creates a row of ducks, with a maximum of 3 ducks in the row at the same time
     for (let i = 0; i < 3; i++) {
+      //sets the distance between the ducks
       let x = i * 200 + 30;
+      //sets the duck's x & y value, and the height and width, and lastly speed
       ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -3);
+      //puts the ducks in the index
       index++;
     }
   }
@@ -915,38 +980,58 @@ function setup() {
     foxes = [];
     ducks = [];
     // ROW 1
+    //creates a row of foxes, with a maximum of 2 foxes in the row at the same time
     for (let i = 0; i < 2; i++) {
+      //sets the distance between the foxes
       let x = i * 300 + 70;
+      //sets the fox's x & y value, and the height and width, and lastly speed
       foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 1);
+      //puts the foxes in the index
       index++;
     }
 
     // ROW 2
+    //creates a row of foxes, with a maximum of 3 foxes in the row at the same time
     for (let i = 0; i < 3; i++) {
+      //sets the distance between the foxes
       let x = i * 200 + 70;
+      //sets the fox's x & y value, and the height and width, and lastly speed
       foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3);
+      //puts the foxes in the index
       index++;
     }
 
     // ROW 3
+    //creates a row of foxes, with a maximum of 2 foxes in the row at the same time
     for (let i = 0; i < 2; i++) {
+      //sets the distance between the foxes
       let x = i * 150 + 70;
+      //sets the fox's x & y value, and the height and width, and lastly speed
       foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1);
+      //puts the foxes in the index
       index++;
     }
 
     // ROW 4
     index = 0;
+    //creates a row of ducks, with a maximum of 3 ducks in the row at the same time
     for (let i = 0; i < 3; i++) {
+      //sets the distance between the ducks
       let x = i * 250 + 100;
+      //sets the duck's x & y value, and the height and width, and lastly speed
       ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 4);
+      //puts the ducks in the index
       index++;
     }
 
     // ROW 5
+    //creates a row of ducks, with a maximum of 3 ducks in the row at the same time
     for (let i = 0; i < 3; i++) {
+      //sets the distance between the ducks
       let x = i * 200 + 30;
+      //sets the duck's x & y value, and the height and width, and lastly speed
       ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -3);
+      //puts the ducks in the index
       index++;
     }
   }
@@ -959,38 +1044,58 @@ function setup() {
     foxes = [];
     ducks = [];
     // ROW 1
+    //creates a row of foxes, with a maximum of 2 foxes in the row at the same time
     for (let i = 0; i < 2; i++) {
+      //sets the distance between the foxes
       let x = i * 300 + 70;
+      //sets the fox's x & y value, and the height and width, and lastly speed
       foxes[index] = new Fox(x, height - grid * 2, grid * 2, grid, 1);
+      //puts the foxes in the index
       index++;
     }
 
     // ROW 2
+    //creates a row of foxes, with a maximum of 3 foxes in the row at the same time
     for (let i = 0; i < 3; i++) {
+      //sets the distance between the foxes
       let x = i * 200 + 70;
+      //sets the fox's x & y value, and the height and width, and lastly speed
       foxes[index] = new Fox(x, height - grid * 3, grid * 2, grid, -3);
+      //puts the foxes in the index
       index++;
     }
 
     // ROW 3
+    //creates a row of foxes, with a maximum of 2 foxes in the row at the same time
     for (let i = 0; i < 2; i++) {
+      //sets the distance between the foxes
       let x = i * 150 + 70;
+      //sets the fox's x & y value, and the height and width, and lastly speed
       foxes[index] = new Fox(x, height - grid * 4, grid * 2, grid, 1);
+      //puts the foxes in the index
       index++;
     }
 
     // ROW 4
     index = 0;
+    //creates a row of ducks, with a maximum of 3 ducks in the row at the same time
     for (let i = 0; i < 3; i++) {
+      //sets the distance between the ducks
       let x = i * 250 + 100;
+      //sets the duck's x & y value, and the height and width, and lastly speed
       ducks[index] = new Duck(x, height - grid * 6.5, grid * 1, grid, 4);
+      //puts the ducks in the index
       index++;
     }
 
     // ROW 5
+    //creates a row of ducks, with a maximum of 3 ducks in the row at the same time
     for (let i = 0; i < 3; i++) {
+      //sets the distance between the ducks
       let x = i * 200 + 30;
+      //sets the duck's x & y value, and the height and width, and lastly speed
       ducks[index] = new Duck(x, height - grid * 7.5, grid * 1, grid, -3);
+      //puts the ducks in the index
       index++;
     }
   }
@@ -1000,7 +1105,7 @@ function draw() {
   background(173, 117, 85);
   noStroke();
 
-  //ScreenCurrentState
+  //Screen options
   if (gameMode === "start") {
     startScreen();
     gameIsRunning = false;
@@ -1021,20 +1126,24 @@ function draw() {
       scenary3();
     }
 
+    //updates and draws foxes based on the length of the array (amount of foxes)
     for (let i = 0; i < foxes.length; i++) {
       foxes[i].update();
       foxes[i].draw();
 
+      //if bunny intersects/collides with fox, the game will restart
       if (bunny.intersects(foxes[i])) {
         resetGame();
       }
     }
 
+    //updates and draws ducks based on the length of the array (amount of ducks)
     for (let i = 0; i < ducks.length; i++) {
       ducks[i].update();
       ducks[i].draw();
     }
 
+    //specifies pond part, if bunny touches the bunny will not be ok
     if (
       bunny.y < height - grid * 5.5 &&
       bunny.y > height - grid * 8 &&
@@ -1042,30 +1151,34 @@ function draw() {
     ) {
       let ok = false;
 
+      //if bunny intersects/overlaps with duck, the bunny will attach to it
       for (let i = 0; i < ducks.length; i++) {
         if (bunny.intersects(ducks[i])) {
           ok = true;
           bunny.attach(ducks[i]);
         }
       }
+      //if bunny not okay (if it touches the pond), the game will reset
       if (!ok) {
         resetGame();
       }
+      //it will not be attached then
     } else {
       bunny.attach(null);
     }
-
+    //update the bunny
     bunny.update();
     bunny.draw();
 
     //the following 7 lines of code was from: https://chatgpt.com/share/5956644f-8300-4379-8a0b-a50cc4756d00 Accessed: 2024-05-10
 
     //timer
+    //returns the amount of milliseconds and will decrease to zero
     let timePass = millis() - timer;
     fill(0, 0, 0);
     textSize(20);
     text("Timer: " + Math.floor((timeLimit - timePass) / 1000), 400, 30);
-
+    //if time hits zero, the game is over
     if (timePass > timeLimit) {
       gameMode = "gameOver";
     }
@@ -1079,6 +1192,7 @@ function draw() {
 }
 
 function keyPressed() {
+  //game controls
   if (keyCode === UP_ARROW) {
     bunny.move(0, -1);
   } else if (keyCode === DOWN_ARROW) {
@@ -1099,6 +1213,7 @@ function keyPressed() {
 }
 
 function mousePressed() {
+  //rules screen
   if (
     mouseX > 10 &&
     mouseX < 150 &&
