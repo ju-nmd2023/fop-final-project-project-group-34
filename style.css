@@ -1,0 +1,25 @@
+/* This code is taken by the courtesy of this website which Garrett recommended: https://github.com/processing/p5.js/wiki/Positioning-your-canvas */
+
+html,
+body {
+  height: 100%;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+  display: flex;
+
+  /* This centers our sketch horizontally. */
+  justify-content: center;
+
+  /* This centers our sketch vertically. */
+  align-items: center;
+  background-image: url(picnicbackground.png);
+}
+
+h1 {
+  font-family: cursive;
+  color: darkred;
+  font-size: 50pt;
+}
